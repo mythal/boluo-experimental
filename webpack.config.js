@@ -76,6 +76,10 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, { loader: 'css-loader' }],
       },
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
       { test: /\.(png|jpe?g|gif)$/, use: ['file-loader'] },
     ],
   },

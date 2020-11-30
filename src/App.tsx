@@ -4,6 +4,7 @@ import { blue } from './styles/color';
 import { p } from './styles/spacing';
 import { css } from '@emotion/react';
 import { lg, sm } from './styles/base';
+import Logo from './assets/development-favicon.svg';
 
 const counterState = atom({
   key: 'counter', // unique ID (with respect to other atoms/selectors)
@@ -24,6 +25,7 @@ export function App() {
         lg(textColor('black')),
       ]}
     >
+      <Logo />
       <h1 css={[italic]}>Counter: {counter}</h1>
       <button onClick={add1}>+1</button>
     </div>
