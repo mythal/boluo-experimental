@@ -1,4 +1,18 @@
 {
-  "presets": ["@babel/typescript", "@babel/react"],
-  "plugins": ["react-refresh/babel"]
+  "presets": [
+    "@babel/typescript",
+    ["@babel/preset-react", { "runtime": "automatic", "importSource": "@emotion/react" }]
+  ],
+  "plugins": [
+    "react-refresh/babel",
+    [
+      "@emotion",
+      {
+        "sourceMap": true,
+        "autoLabel": "dev-only",
+        "labelFormat": "[local]",
+        "cssPropOptimization": true
+      }
+    ]
+  ]
 }

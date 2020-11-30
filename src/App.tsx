@@ -1,12 +1,9 @@
-import React from 'react';
 import { atom, useRecoilState } from 'recoil';
-import { css, cx } from '@emotion/css';
-
-const style = {
-  italic: css`
-    font-style: italic;
-  `,
-};
+import { italic, textColor } from './styles/typography';
+import { blue } from './styles/color';
+import { p } from './styles/spacing';
+import { css } from '@emotion/react';
+import { lg, sm } from './styles/base';
 
 const counterState = atom({
   key: 'counter', // unique ID (with respect to other atoms/selectors)
@@ -17,8 +14,17 @@ export function App() {
   const [counter, setCounter] = useRecoilState(counterState);
   const add1 = () => setCounter((counter) => counter + 1);
   return (
-    <div>
-      <h1 className={style.italic}>Counter: {counter}</h1>
+    <div
+      css={[
+        css`
+          width: 20em;
+        `,
+        p(4),
+        sm(textColor(blue['500'])),
+        lg(textColor('black')),
+      ]}
+    >
+      <h1 css={[italic]}>Counter: {counter}</h1>
       <button onClick={add1}>+1</button>
     </div>
   );

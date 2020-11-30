@@ -31,6 +31,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(rootPath, 'public/index.html'),
       inject: true,
+      favicon: path.resolve(rootPath, 'src/assets/development-favicon.svg'),
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
