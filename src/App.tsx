@@ -1,33 +1,63 @@
 import { atom, useRecoilState } from 'recoil';
-import { textColor } from './styles/typography';
-import { blue } from './styles/color';
-import { p } from './styles/spacing';
-import { css } from '@emotion/react';
-import { lg, sm } from './styles/base';
-import Logo from './assets/development-favicon.svg';
+import { textColor, textXl } from './styles/typography';
+import { blue, gray, white } from './styles/color';
+import { mb, p, px, py } from './styles/spacing';
+import { active, dark, focus, hover, lg, md, sm } from './styles/base';
+import { bg } from './styles/backgrounds';
+import { w, wFull } from './styles/sizing';
+import { rounded, roundedSm } from './styles/borders';
+import { floatRight } from './styles/layout';
+import { shadowLg, shadowSm } from './styles/effect';
+import { outlineBlack, outlineWhite } from './styles/interactivity';
+import { lazy, Suspense } from 'react';
+import { animatePing } from './styles/transitions';
 
+const Logo = lazy(() => import('./assets/development-favicon.svg'));
 const counterState = atom({
   key: 'counter', // unique ID (with respect to other atoms/selectors)
   default: 0, // default value (aka initial value)
 });
 
+const button = [
+  bg(gray['800']),
+  px(3),
+  py(1),
+  roundedSm,
+  shadowSm,
+  textColor(white),
+  hover(bg(gray['700']), shadowLg),
+  active(bg(gray['600'])),
+  focus(outlineBlack),
+  dark(focus(outlineWhite)),
+];
+
 export function App() {
   const [counter, setCounter] = useRecoilState(counterState);
   const add1 = () => setCounter((counter) => counter + 1);
   return (
-    <div
-      css={[
-        css`
-          width: 20em;
-        `,
-        p(4),
-        sm(textColor(blue['500'])),
-        lg(textColor('black')),
-      ]}
-    >
-      <Logo />
-      <h1>Counter: {counter}</h1>
-      <button onClick={add1}>+1</button>
-    </div>
+    <Suspense fallback={<div>loading...</div>}>
+      <div css={[p(2)]}>
+        <div
+          css={[
+            wFull,
+            md(w(64)),
+            rounded,
+            bg(blue['100']),
+            shadowLg,
+            textColor(blue['900']),
+            dark(bg(blue['900']), textColor(blue['100'])),
+            p(4),
+            sm(textColor(blue['500'])),
+            lg(textColor('black')),
+          ]}
+        >
+          <Logo css={[md(floatRight), hover(animatePing)]} />
+          <h1 css={[textXl, mb(4)]}>Counter: {counter}</h1>
+          <button onClick={add1} css={[button]}>
+            +1
+          </button>
+        </div>
+      </div>
+    </Suspense>
   );
 }

@@ -158,11 +158,29 @@ export const noUnderline = css`
 `;
 
 // Font Weight https://tailwindcss.com/docs/font-weight
+export const fontThin = css`
+  font-weight: 100;
+`;
+export const fontExtralight = css`
+  font-weight: 200;
+`;
 export const fontNormal = css`
   font-weight: 400;
 `;
+export const fontMedium = css`
+  font-weight: 500;
+`;
+export const fontSemibold = css`
+  font-weight: 600;
+`;
 export const fontBold = css`
   font-weight: 700;
+`;
+export const fontExtrabold = css`
+  font-weight: 800;
+`;
+export const fontBlack = css`
+  font-weight: 900;
 `;
 
 // List Style Type https://tailwindcss.com/docs/list-style-type

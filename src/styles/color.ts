@@ -264,9 +264,12 @@ export const blueGray = {
   900: '#0f172a',
 };
 
+export const black = '#000';
+export const white = '#fff';
+
 export const colors = {
-  black: '#000',
-  white: '#fff',
+  black,
+  white,
   blueGray,
   coolGray,
   gray,

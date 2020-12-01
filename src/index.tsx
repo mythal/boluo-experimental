@@ -5,8 +5,10 @@ import { RecoilRoot } from 'recoil';
 import './styles/base.css';
 
 ReactDOM.render(
-  <RecoilRoot>
-    <App />
-  </RecoilRoot>,
+  <React.StrictMode>
+    <RecoilRoot>
+      <App />
+    </RecoilRoot>
+  </React.StrictMode>,
   document.getElementById('root')
 );
