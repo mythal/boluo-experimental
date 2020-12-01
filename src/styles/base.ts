@@ -59,3 +59,16 @@ export const active = (...styles: CSSInterpolation[]) =>
       ${css(styles)};
     }
   `;
+
+// Dark Mode https://tailwindcss.com/docs/dark-mode
+export const dark = (...styles: CSSInterpolation[]) =>
+  css`
+    .theme-dark & {
+      ${css(styles)};
+    }
+    .theme-auto & {
+      @media (prefers-color-scheme: dark) {
+        ${css(styles)}
+      }
+    }
+  `;
