@@ -29,8 +29,8 @@ module.exports = {
   plugins: [
     new ReactRefreshWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(rootPath, 'public/index.html'),
-      inject: true,
+      template: path.resolve(rootPath, 'public/index.hbs'),
+      inject: false,
       favicon: path.resolve(rootPath, 'src/assets/development-favicon.svg'),
     }),
     new CleanWebpackPlugin(),
@@ -63,6 +63,10 @@ module.exports = {
 
   module: {
     rules: [
+      {
+        test: /\.hbs$/,
+        loader: 'handlebars-loader',
+      },
       {
         test: /\.[jt]sx?$/,
         exclude: /node_modules/,
