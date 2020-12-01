@@ -1,17 +1,5 @@
 import { css } from '@emotion/react';
-import { math } from 'polished';
-
-const sizeCache: Record<number, string | undefined> = {};
-export function size(n: number) {
-  const cachedResult = sizeCache[n];
-  if (cachedResult === undefined) {
-    const result = math(`0.25rem * ${n}`);
-    sizeCache[n] = result;
-    return result;
-  } else {
-    return cachedResult;
-  }
-}
+import { size } from './base';
 
 // Margin https://tailwindcss.com/docs/margin
 
@@ -163,4 +151,28 @@ export function pl(n: number) {
 
 export const plPx = css`
   padding-left: 1px;
+`;
+
+// Space Between https://tailwindcss.com/docs/space
+export const spaceY0 = my(0);
+export const spaceY = (n: number) => css`
+  & > * + * {
+    margin-top: ${size(n)};
+  }
+`;
+export const spaceYRev = (n: number) => css`
+  & > * + * {
+    margin-bottom: ${size(n)};
+  }
+`;
+export const spaceX0 = mx(0);
+export const spaceX = (n: number) => css`
+  & > * + * {
+    margin-left: ${size(n)};
+  }
+`;
+export const spaceXRev = (n: number) => css`
+  & > * + * {
+    margin-right: ${size(n)};
+  }
 `;

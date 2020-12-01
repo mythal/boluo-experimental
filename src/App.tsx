@@ -1,5 +1,5 @@
 import { atom, useRecoilState } from 'recoil';
-import { italic, textColor } from './styles/typography';
+import { textColor } from './styles/typography';
 import { blue } from './styles/color';
 import { p } from './styles/spacing';
 import { css } from '@emotion/react';
@@ -26,7 +26,7 @@ export function App() {
       ]}
     >
       <Logo />
-      <h1 css={[italic]}>Counter: {counter}</h1>
+      <h1>Counter: {counter}</h1>
       <button onClick={add1}>+1</button>
     </div>
   );
