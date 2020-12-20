@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { memoize } from './base';
 
 // Flex Direction https://tailwindcss.com/docs/flex-direction
 export const flexRow = css`
@@ -56,10 +57,12 @@ export const flexShrink = css`
 `;
 
 // Order https://tailwindcss.com/docs/order
-export const order = (n: number) =>
-  css`
-    order: ${n};
-  `;
+export const order = memoize(
+  (n: number) =>
+    css`
+      order: ${n};
+    `
+);
 export const orderFirst = css`
   order: -9999;
 `;

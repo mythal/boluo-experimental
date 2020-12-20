@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import { opacify } from 'polished';
+import { memoize } from './base';
 
 // Background Attachment https://tailwindcss.com/docs/background-attachment
 export const bgFixed = css`
@@ -34,12 +35,12 @@ export const bgTransparent = css`
 export const bgCurrent = css`
   background-color: currentColor;
 `;
-export function bg(color: string, opacity = 100) {
+export const bg = memoize((color: string, opacity = 100) => {
   const finalColor = opacity >= 100 ? color : opacify(opacity / 100, color);
   return css`
     background-color: ${finalColor};
   `;
-}
+});
 
 // Background Repeat https://tailwindcss.com/docs/background-repeat
 export const bgRepeat = css`

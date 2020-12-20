@@ -9,9 +9,10 @@ import { rounded, roundedSm } from './styles/borders';
 import { clearBoth, floatRight } from './styles/layout';
 import { shadowLg, shadowSm } from './styles/effect';
 import { outlineBlack, outlineWhite } from './styles/interactivity';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useMemo } from 'react';
 import { animatePing } from './styles/transitions';
 import { Icon } from './Icon';
+import { css } from '@emotion/react';
 
 const Logo = lazy(() => import('./assets/development-favicon.svg'));
 const counterState = atom({
@@ -35,23 +36,26 @@ const button = [
 export function App() {
   const [counter, setCounter] = useRecoilState(counterState);
   const add1 = () => setCounter((counter) => counter + 1);
+  const card = useMemo(
+    () =>
+      css(
+        wFull,
+        md(w(64)),
+        rounded,
+        bg(blue['100']),
+        shadowLg,
+        textColor(blue['900']),
+        dark(bg(blue['900']), textColor(blue['100'])),
+        p(4),
+        sm(textColor(blue['500'])),
+        lg(textColor('black'))
+      ),
+    []
+  );
   return (
     <Suspense fallback={<div>loading...</div>}>
       <div css={[p(2)]}>
-        <div
-          css={[
-            wFull,
-            md(w(64)),
-            rounded,
-            bg(blue['100']),
-            shadowLg,
-            textColor(blue['900']),
-            dark(bg(blue['900']), textColor(blue['100'])),
-            p(4),
-            sm(textColor(blue['500'])),
-            lg(textColor('black')),
-          ]}
-        >
+        <div css={card}>
           <Logo css={[md(floatRight), hover(animatePing)]} />
           <h1 css={[textXl, mb(4)]}>Counter: {counter}</h1>
           <div>

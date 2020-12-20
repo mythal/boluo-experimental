@@ -12,12 +12,10 @@ export const breakpoint = {
   xl2: '1536px',
 };
 
-export const responsive = (breakPoint: string, ...styles: Array<CSSInterpolation>) =>
-  css`
-    @media (min-width: ${breakPoint}) {
-      ${styles}
-    }
-  `;
+export const responsive = (breakPoint: string, ...styles: Array<CSSInterpolation>): CSSInterpolation => ({
+  [`@media (min-width: ${breakPoint})`]: styles,
+});
+
 export const sm = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.sm, styles);
 export const md = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.md, styles);
 export const lg = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.lg, styles);
@@ -25,7 +23,7 @@ export const xl = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.
 export const xl2 = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.xl, styles);
 
 const sizeCache: Record<number, string | undefined> = {};
-export function size(n: number) {
+export function size(n: number): string {
   const cachedResult = sizeCache[n];
   if (cachedResult === undefined) {
     const result = math(`0.25rem * ${n}`);
@@ -36,45 +34,27 @@ export function size(n: number) {
   }
 }
 
-export const disabled = (...styles: CSSInterpolation[]) =>
-  css`
-    &:disabled {
-      ${css(styles)};
-    }
-  `;
-export const hover = (...styles: CSSInterpolation[]) =>
-  css`
-    &:hover {
-      ${css(styles)};
-    }
-  `;
-export const focus = (...styles: CSSInterpolation[]) =>
-  css`
-    &:focus {
-      ${css(styles)};
-    }
-  `;
-export const active = (...styles: CSSInterpolation[]) =>
-  css`
-    &:active {
-      ${css(styles)};
-    }
-  `;
+export const disabled = (...styles: CSSInterpolation[]): CSSInterpolation => ({
+  '&:disabled': styles,
+});
+export const hover = (...styles: CSSInterpolation[]): CSSInterpolation => ({
+  '&:hover': styles,
+});
+export const focus = (...styles: CSSInterpolation[]): CSSInterpolation => ({
+  '&:focus': styles,
+});
+export const active = (...styles: CSSInterpolation[]): CSSInterpolation => ({
+  '&:active': styles,
+});
 
 // Dark Mode https://tailwindcss.com/docs/dark-mode
 export const dark = (...styles: CSSInterpolation[]) =>
-  css`
-    ${[transitionColors, duration300]};
-
-    .theme-dark & {
-      ${css(styles)};
-    }
-    .theme-auto & {
-      @media (prefers-color-scheme: dark) {
-        ${css(styles)}
-      }
-    }
-  `;
+  css(transitionColors, duration300, {
+    '.theme-dark &': styles,
+    '.theme-auto &': {
+      '@media (prefers-color-scheme: dark)': styles,
+    },
+  });
 
 export const resetThemeClasses = () => {
   const html = document.documentElement;
@@ -95,3 +75,17 @@ export const switchToAuto = () => {
   resetThemeClasses();
   document.documentElement.classList.add('theme-auto');
 };
+
+export function memoize<R, T extends (...args: any[]) => R>(f: T): T {
+  const memory = new Map<string, R>();
+
+  const g = (...args: any[]) => {
+    const key = JSON.stringify(args);
+    if (!memory.get(key)) {
+      memory.set(key, f(...args));
+    }
+    return memory.get(key);
+  };
+
+  return g as T;
+}

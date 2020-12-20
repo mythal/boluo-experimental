@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { size } from './base';
+import { memoize, size } from './base';
 
 // Grid Auto Flow https://tailwindcss.com/docs/grid-auto-flow
 export const gridFlowRow = css`
@@ -44,25 +44,31 @@ export const autoRowsFr = css`
 `;
 
 // Gap https://tailwindcss.com/docs/gap
-export const gap = (n: number) =>
-  css`
-    gap: ${size(n)};
-  `;
+export const gap = memoize(
+  (n: number) =>
+    css`
+      gap: ${size(n)};
+    `
+);
 export const gapPx = css`
   gap: 1px;
 `;
 export const gap0 = gap(0);
-export const gapX = (n: number) =>
-  css`
-    column-gap: ${size(n)};
-  `;
+export const gapX = memoize(
+  (n: number) =>
+    css`
+      column-gap: ${size(n)};
+    `
+);
 export const gapXPx = css`
   column-gap: 1px;
 `;
-export const gapY = (n: number) =>
-  css`
-    row-gap: ${size(n)};
-  `;
+export const gapY = memoize(
+  (n: number) =>
+    css`
+      row-gap: ${size(n)};
+    `
+);
 export const gapYPx = css`
   row-gap: 1px;
 `;

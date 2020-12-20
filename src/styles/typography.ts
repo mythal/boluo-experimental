@@ -1,14 +1,14 @@
 import { css } from '@emotion/react';
 import { opacify } from 'polished';
-import { size } from './base';
+import { memoize, size } from './base';
 
 // Text Color https://tailwindcss.com/docs/text-color
-export function textColor(color: string, opacity = 100) {
+export const textColor = memoize((color: string, opacity = 100) => {
   const finalColor = opacity >= 100 ? color : opacify(opacity / 100, color);
   return css`
     color: ${finalColor};
   `;
-}
+});
 export const textTransparent = css`
   color: transparent;
 `;
@@ -250,14 +250,14 @@ export const whitespacePreWrap = css`
 `;
 
 // Placeholder Color https://tailwindcss.com/docs/placeholder-color
-export function placeholderColor(color: string, opacity = 100) {
+export const placeholderColor = memoize((color: string, opacity = 100) => {
   const finalColor = opacity >= 100 ? color : opacify(opacity / 100, color);
   return css`
     &::placeholder {
       color: ${finalColor};
     }
   `;
-}
+});
 
 // Vertical Alignment https://tailwindcss.com/docs/vertical-align
 export const alignBaseline = css`

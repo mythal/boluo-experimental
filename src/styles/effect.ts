@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { memoize } from './base';
 
 // Box Shadow https://tailwindcss.com/docs/box-shadow
 export const shadowSm = css`
@@ -26,6 +27,8 @@ export const shadowNone = css`
   box-shadow: 0 0 #0000;
 `;
 // Opacity https://tailwindcss.com/docs/opacity
-export const opacity = (n: number) => css`
-  opacity: ${n / 100};
-`;
+export const opacity = memoize(
+  (n: number) => css`
+    opacity: ${n / 100};
+  `
+);

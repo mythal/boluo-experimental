@@ -1,77 +1,77 @@
 import { css } from '@emotion/react';
-import { size } from './base';
+import { memoize, size } from './base';
 
 // Margin https://tailwindcss.com/docs/margin
 
-export function mx(n: number) {
-  return css`
+export const mx = memoize(
+  (n: number) => css`
     margin-left: ${size(n)};
     margin-right: ${size(n)};
-  `;
-}
+  `
+);
 
 export const mxAuto = css`
   margin-left: auto;
   margin-right: auto;
 `;
 
-export function my(n: number) {
-  return css`
+export const my = memoize(
+  (n: number) => css`
     margin-top: ${size(n)};
     margin-bottom: ${size(n)};
-  `;
-}
+  `
+);
 
 export const myAuto = css`
   margin-top: auto;
   margin-bottom: auto;
 `;
 
-export function m(n: number) {
-  return css`
+export const m = memoize(
+  (n: number) => css`
     margin: ${size(n)};
-  `;
-}
+  `
+);
 
 export const mAuto = css`
   margin: auto;
 `;
 
-export function mt(n: number) {
-  return css`
+export const mt = memoize(
+  (n: number) => css`
     margin-top: ${size(n)};
-  `;
-}
+  `
+);
 
 export const mtAuto = css`
   margin-top: auto;
 `;
 
-export function mr(n: number) {
-  return css`
+export const mr = memoize(
+  (n: number) => css`
     margin-right: ${size(n)};
-  `;
-}
+  `
+);
 
 export const mrAuto = css`
   margin-right: auto;
 `;
 
-export function mb(n: number) {
-  return css`
+export const mb = memoize(
+  (n: number) => css`
     margin-bottom: ${size(n)};
-  `;
-}
+  `
+);
 
 export const mbAuto = css`
   margin-bottom: auto;
 `;
 
-export function ml(n: number) {
-  return css`
+export const ml = memoize(
+  (n: number) => css`
     margin-left: ${size(n)};
-  `;
-}
+  `
+);
 
 export const mlAuto = css`
   margin-left: auto;
@@ -79,75 +79,75 @@ export const mlAuto = css`
 
 // Padding https://tailwindcss.com/docs/padding
 
-export function px(n: number) {
-  return css`
+export const px = memoize(
+  (n: number) => css`
     padding-left: ${size(n)};
     padding-right: ${size(n)};
-  `;
-}
+  `
+);
 
 export const pxPx = css`
   padding-left: 1px;
   padding-right: 1px;
 `;
 
-export function py(n: number) {
-  return css`
+export const py = memoize(
+  (n: number) => css`
     padding-top: ${size(n)};
     padding-bottom: ${size(n)};
-  `;
-}
+  `
+);
 
 export const pyPx = css`
   padding-top: 1px;
   padding-bottom: 1px;
 `;
 
-export function p(n: number) {
-  return css`
+export const p = memoize(
+  (n: number) => css`
     padding: ${size(n)};
-  `;
-}
+  `
+);
 
 export const pPx = css`
   padding: 1px;
 `;
 
-export function pt(n: number) {
-  return css`
+export const pt = memoize(
+  (n: number) => css`
     padding-top: ${size(n)};
-  `;
-}
+  `
+);
 
 export const ptPx = css`
   padding-top: 1px;
 `;
 
-export function pr(n: number) {
-  return css`
+export const pr = memoize(
+  (n: number) => css`
     padding-right: ${size(n)};
-  `;
-}
+  `
+);
 
 export const prPx = css`
   padding-right: 1px;
 `;
 
-export function pb(n: number) {
-  return css`
+export const pb = memoize(
+  (n: number) => css`
     padding-bottom: ${size(n)};
-  `;
-}
+  `
+);
 
 export const pbPx = css`
   padding-bottom: 1px;
 `;
 
-export function pl(n: number) {
-  return css`
+export const pl = memoize(
+  (n: number) => css`
     padding-left: ${size(n)};
-  `;
-}
+  `
+);
 
 export const plPx = css`
   padding-left: 1px;
@@ -155,24 +155,32 @@ export const plPx = css`
 
 // Space Between https://tailwindcss.com/docs/space
 export const spaceY0 = my(0);
-export const spaceY = (n: number) => css`
-  & > * + * {
-    margin-top: ${size(n)};
-  }
-`;
-export const spaceYRev = (n: number) => css`
-  & > * + * {
-    margin-bottom: ${size(n)};
-  }
-`;
+export const spaceY = memoize(
+  (n: number) => css`
+    & > * + * {
+      margin-top: ${size(n)};
+    }
+  `
+);
+export const spaceYRev = memoize(
+  (n: number) => css`
+    & > * + * {
+      margin-bottom: ${size(n)};
+    }
+  `
+);
 export const spaceX0 = mx(0);
-export const spaceX = (n: number) => css`
-  & > * + * {
-    margin-left: ${size(n)};
-  }
-`;
-export const spaceXRev = (n: number) => css`
-  & > * + * {
-    margin-right: ${size(n)};
-  }
-`;
+export const spaceX = memoize(
+  (n: number) => css`
+    & > * + * {
+      margin-left: ${size(n)};
+    }
+  `
+);
+export const spaceXRev = memoize(
+  (n: number) => css`
+    & > * + * {
+      margin-right: ${size(n)};
+    }
+  `
+);
