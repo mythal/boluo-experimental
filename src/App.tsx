@@ -1,12 +1,12 @@
 import { atom, useRecoilState } from 'recoil';
 import { textColor, textXl } from './styles/typography';
 import { blue, gray, white } from './styles/color';
-import { mb, p, px, py } from './styles/spacing';
-import { active, dark, focus, hover, lg, md, sm } from './styles/base';
+import { mb, my, p, px, py, spaceX } from './styles/spacing';
+import { active, dark, focus, hover, lg, md, sm, switchToAuto, switchToDark, switchToLight } from './styles/base';
 import { bg } from './styles/backgrounds';
 import { w, wFull } from './styles/sizing';
 import { rounded, roundedSm } from './styles/borders';
-import { floatRight } from './styles/layout';
+import { clearBoth, floatRight } from './styles/layout';
 import { shadowLg, shadowSm } from './styles/effect';
 import { outlineBlack, outlineWhite } from './styles/interactivity';
 import { lazy, Suspense } from 'react';
@@ -53,9 +53,22 @@ export function App() {
         >
           <Logo css={[md(floatRight), hover(animatePing)]} />
           <h1 css={[textXl, mb(4)]}>Counter: {counter}</h1>
-          <button onClick={add1} css={[button]}>
-            +1
-          </button>
+          <div>
+            <button onClick={add1} css={[button]}>
+              +1
+            </button>
+          </div>
+          <div css={[spaceX(1), my(1), clearBoth]}>
+            <button css={[button]} onClick={switchToLight}>
+              白天
+            </button>
+            <button css={[button]} onClick={switchToDark}>
+              晚上
+            </button>
+            <button css={[button]} onClick={switchToAuto}>
+              自动
+            </button>
+          </div>
         </div>
       </div>
     </Suspense>

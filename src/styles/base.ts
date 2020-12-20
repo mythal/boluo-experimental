@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { CSSInterpolation } from '@emotion/serialize';
 import { math } from 'polished';
+import { duration300, transitionColors } from './transitions';
 
 // Breakpoints https://tailwindcss.com/docs/breakpoints
 export const breakpoint = {
@@ -63,6 +64,8 @@ export const active = (...styles: CSSInterpolation[]) =>
 // Dark Mode https://tailwindcss.com/docs/dark-mode
 export const dark = (...styles: CSSInterpolation[]) =>
   css`
+    ${[transitionColors, duration300]};
+
     .theme-dark & {
       ${css(styles)};
     }
@@ -72,3 +75,23 @@ export const dark = (...styles: CSSInterpolation[]) =>
       }
     }
   `;
+
+export const resetThemeClasses = () => {
+  const html = document.documentElement;
+  html.classList.remove('theme-light', 'theme-dark', 'theme-auto');
+};
+
+export const switchToDark = () => {
+  resetThemeClasses();
+  document.documentElement.classList.add('theme-dark');
+};
+
+export const switchToLight = () => {
+  resetThemeClasses();
+  document.documentElement.classList.add('theme-light');
+};
+
+export const switchToAuto = () => {
+  resetThemeClasses();
+  document.documentElement.classList.add('theme-auto');
+};
