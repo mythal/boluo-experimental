@@ -13,7 +13,7 @@ export const breakpoint = {
 };
 
 export const responsive = (breakPoint: string, ...styles: Array<CSSInterpolation>): CSSInterpolation => ({
-  [`@media (min-width: ${breakPoint})`]: styles,
+  [`@media (min-width: ${breakPoint})`]: css(styles),
 });
 
 export const sm = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.sm, styles);
@@ -35,26 +35,28 @@ export function size(n: number): string {
 }
 
 export const disabled = (...styles: CSSInterpolation[]): CSSInterpolation => ({
-  '&:disabled': styles,
+  '&:disabled': css(styles),
 });
 export const hover = (...styles: CSSInterpolation[]): CSSInterpolation => ({
-  '&:hover': styles,
+  '&:hover': css(styles),
 });
 export const focus = (...styles: CSSInterpolation[]): CSSInterpolation => ({
-  '&:focus': styles,
+  '&:focus': css(styles),
 });
 export const active = (...styles: CSSInterpolation[]): CSSInterpolation => ({
-  '&:active': styles,
+  '&:active': css(styles),
 });
 
 // Dark Mode https://tailwindcss.com/docs/dark-mode
-export const dark = (...styles: CSSInterpolation[]) =>
-  css(transitionColors, duration300, {
-    '.theme-dark &': styles,
+export const dark = (...styles: CSSInterpolation[]) => {
+  const styles_ = css(styles);
+  return css(transitionColors, duration300, {
+    '.theme-dark &': styles_,
     '.theme-auto &': {
-      '@media (prefers-color-scheme: dark)': styles,
+      '@media (prefers-color-scheme: dark)': styles_,
     },
   });
+};
 
 export const resetThemeClasses = () => {
   const html = document.documentElement;

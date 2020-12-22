@@ -135,6 +135,7 @@ export const placeContentStretch = css`
 `;
 
 // Place Items https://tailwindcss.com/docs/place-items
+// noinspection CssInvalidPropertyValue
 export const placeItemsAuto = css`
   place-items: auto;
 `;

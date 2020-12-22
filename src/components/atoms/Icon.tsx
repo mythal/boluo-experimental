@@ -1,12 +1,12 @@
 import { lazy, memo, Suspense, Component, LazyExoticComponent, FunctionComponent, SVGProps } from 'react';
-import PlaceholderIcon from './assets/icons/square-regular.svg';
+import PlaceholderIcon from '../../assets/icons/square-regular.svg';
 
 export type IconComponent = LazyExoticComponent<FunctionComponent<SVGProps<SVGSVGElement>>>;
 
 export const icons = {
-  light: lazy(() => import('./assets/icons/sun-solid.svg')),
-  dark: lazy(() => import('./assets/icons/moon-solid.svg')),
-  spinner: lazy(() => import('./assets/icons/spinner-solid.svg')),
+  light: lazy(() => import('../../assets/icons/sun-solid.svg')),
+  dark: lazy(() => import('../../assets/icons/moon-solid.svg')),
+  spinner: lazy(() => import('../../assets/icons/spinner-solid.svg')),
 };
 
 export type IconKey = keyof typeof icons;

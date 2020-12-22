@@ -34,6 +34,10 @@ module.exports = {
       favicon: path.resolve(rootPath, 'src/assets/development-favicon.svg'),
     }),
     new CleanWebpackPlugin(),
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development',
+      DEBUG: !PRODUCTION,
+    }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
