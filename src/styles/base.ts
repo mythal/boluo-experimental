@@ -51,8 +51,8 @@ export const active = (...styles: CSSInterpolation[]): CSSInterpolation => ({
 export const dark = (...styles: CSSInterpolation[]) => {
   const styles_ = css(styles);
   return css(transitionColors, duration300, {
-    '.theme-dark &': styles_,
-    '.theme-auto &': {
+    '[data-theme="dark"] &': styles_,
+    '[data-theme="auto"] &': {
       '@media (prefers-color-scheme: dark)': styles_,
     },
   });
@@ -60,29 +60,35 @@ export const dark = (...styles: CSSInterpolation[]) => {
 
 export const resetThemeClasses = () => {
   const html = document.documentElement;
-  html.classList.remove('theme-light', 'theme-dark', 'theme-auto');
+  delete html.dataset['theme'];
 };
 
 export const switchToDark = () => {
-  resetThemeClasses();
-  document.documentElement.classList.add('theme-dark');
+  document.documentElement.dataset['theme'] = 'dark';
 };
 
 export const switchToLight = () => {
-  resetThemeClasses();
-  document.documentElement.classList.add('theme-light');
+  document.documentElement.dataset['theme'] = 'light';
 };
 
 export const switchToAuto = () => {
-  resetThemeClasses();
-  document.documentElement.classList.add('theme-auto');
+  document.documentElement.dataset['theme'] = 'auto';
 };
 
 export function memoize<R, T extends (...args: any[]) => R>(f: T): T {
-  const memory = new Map<string, R>();
+  const memory = new Map<string | number, R>();
 
   const g = (...args: any[]) => {
-    const key = JSON.stringify(args);
+    let key: string | number;
+    if (args.length === 1) {
+      const arg = args[0];
+      if (typeof arg === 'string' || typeof arg === 'number') {
+        key = arg;
+      }
+      key = JSON.stringify(args);
+    } else {
+      key = JSON.stringify(args);
+    }
     if (!memory.get(key)) {
       memory.set(key, f(...args));
     }

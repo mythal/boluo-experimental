@@ -35,7 +35,7 @@ export const bgTransparent = css`
 export const bgCurrent = css`
   background-color: currentColor;
 `;
-export const bg = memoize((color: string, opacity = 100) => {
+export const bgColor = memoize((color: string, opacity = 100) => {
   const finalColor = opacity >= 100 ? color : opacify(opacity / 100, color);
   return css`
     background-color: ${finalColor};

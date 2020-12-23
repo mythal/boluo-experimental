@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { memoize, size } from './base';
 
+export const gridArea = memoize((gridArea: string) => css({ gridArea }));
+
 // Grid Auto Flow https://tailwindcss.com/docs/grid-auto-flow
 export const gridFlowRow = css`
   grid-auto-flow: row;

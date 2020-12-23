@@ -4,8 +4,8 @@ import { linkStyle } from './atoms/link';
 export function Home() {
   return (
     <div>
-      <Link to="/swatch" css={linkStyle}>
-        Swatch
+      <Link to="/design" css={linkStyle}>
+        Design Board
       </Link>
     </div>
   );
