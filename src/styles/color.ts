@@ -264,6 +264,7 @@ export const blueGray = {
   900: '#0f172a',
 };
 
+export const primary = green;
 export const black = '#000';
 export const white = '#fff';
 

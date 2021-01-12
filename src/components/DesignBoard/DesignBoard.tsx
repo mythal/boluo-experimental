@@ -8,6 +8,7 @@ import { ButtonsPage } from './ButtonsPage';
 import { ComponentType } from 'react';
 import { ComponentPageProps } from './common';
 import { InputsPage } from './InputsPage';
+import { SwitchesPage } from './SwitchesPage';
 
 const layout = {
   container: css`
@@ -33,6 +34,7 @@ export interface ComponentItem {
 const components: ComponentItem[] = [
   { name: 'buttons', title: '按钮', Component: ButtonsPage },
   { name: 'inputs', title: '输入', Component: InputsPage },
+  { name: 'switches', title: '开关', Component: SwitchesPage },
 ];
 
 export const DesignBoard = () => {
