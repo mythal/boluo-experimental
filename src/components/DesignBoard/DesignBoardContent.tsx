@@ -9,6 +9,8 @@ import { css } from '@emotion/react';
 import { bgColor } from '../../styles/backgrounds';
 import { gray } from '../../styles/color';
 import { transitionColors } from '../../styles/transitions';
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { useMemo } from 'react';
 
 interface Props extends ClassNameProps {
   components: ComponentItem[];
@@ -28,22 +30,33 @@ const style = css(
 export function DesignBoardContent({ className, components }: Props) {
   const { path } = useRouteMatch();
   const scheme = useRecoilValue(schemeState);
+  const theme = useMemo(
+    () =>
+      createMuiTheme({
+        palette: {
+          mode: scheme,
+        },
+      }),
+    [scheme]
+  );
 
   return (
     <main css={style} data-theme={scheme} className={className}>
-      <Switch>
-        <Route exact path={path}>
-          <p css={text}>选择需要查看的组件</p>
-        </Route>
-        {components.map(({ title, name, Component }) => (
-          <Route path={`${path}/${name}`} key={name}>
-            <Component title={title} />
+      <ThemeProvider theme={theme}>
+        <Switch>
+          <Route exact path={path}>
+            <p css={text}>选择需要查看的组件</p>
           </Route>
-        ))}
-        <Route>
-          <p css={text}>这个组件还未实现</p>
-        </Route>
-      </Switch>
+          {components.map(({ title, name, Component }) => (
+            <Route path={`${path}/${name}`} key={name}>
+              <Component title={title} />
+            </Route>
+          ))}
+          <Route>
+            <p css={text}>这个组件还未实现</p>
+          </Route>
+        </Switch>
+      </ThemeProvider>
     </main>
   );
 }

@@ -40,7 +40,7 @@ export const button = css(
 
 const buttonPrimaryColor = css`
   --btn-bg-color: ${primary['700']};
-  --btn-hover-bg-color: ${primary['500']};
+  --btn-hover-bg-color: ${primary['600']};
   --btn-active-bg-color: ${primary['900']};
   --btn-text-color: ${gray['100']};
   --btn-focus-border-color: ${primary['500']};

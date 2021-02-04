@@ -8,7 +8,7 @@ import { flex } from '../../styles/layout';
 import { itemsCenter, justifyBetween } from '../../styles/box-alignment';
 import { shadowMd } from '../../styles/effect';
 import { p, py, spaceX } from '../../styles/spacing';
-import { Icon } from '../atoms/Icon';
+import { Icon } from '../atoms/icon';
 import { css } from '@emotion/react';
 import { active, focus, hover } from '../../styles/base';
 import { rounded } from '../../styles/borders';

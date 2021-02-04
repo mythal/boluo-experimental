@@ -1,6 +1,6 @@
 import { ClassNameProps } from '../common';
 import { spaceX, spaceY } from '../../styles/spacing';
-import { button, primaryButton } from '../atoms/Button';
+import { button, primaryButton } from '../atoms/button';
 
 interface Props extends ClassNameProps {}
 
