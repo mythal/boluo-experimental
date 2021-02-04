@@ -5,6 +5,7 @@ import Switch from '@material-ui/core/Switch';
 interface Props extends ClassNameProps {}
 
 export function SwitchesPage({ className }: Props) {
+  // https://next.material-ui.com/components/switches/
   const [on, setOn] = useState(false);
   return (
     <div className={className}>

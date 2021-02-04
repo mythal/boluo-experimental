@@ -9,8 +9,9 @@ import { css } from '@emotion/react';
 import { bgColor } from '../../styles/backgrounds';
 import { gray } from '../../styles/color';
 import { transitionColors } from '../../styles/transitions';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { Theme, ThemeProvider } from '@material-ui/core/styles';
 import { useMemo } from 'react';
+import { createTheme } from '../../styles/theme';
 
 interface Props extends ClassNameProps {
   components: ComponentItem[];
@@ -30,15 +31,7 @@ const style = css(
 export function DesignBoardContent({ className, components }: Props) {
   const { path } = useRouteMatch();
   const scheme = useRecoilValue(schemeState);
-  const theme = useMemo(
-    () =>
-      createMuiTheme({
-        palette: {
-          mode: scheme,
-        },
-      }),
-    [scheme]
-  );
+  const theme: Theme = useMemo(() => createTheme(scheme), [scheme]);
 
   return (
     <main css={style} data-theme={scheme} className={className}>
