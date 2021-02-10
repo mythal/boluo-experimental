@@ -1,6 +1,7 @@
 import { ClassNameProps } from '../common';
 import { useState } from 'react';
 import Switch from '@material-ui/core/Switch';
+import { text } from '../atoms/text';
 
 interface Props extends ClassNameProps {}
 
@@ -15,6 +16,7 @@ export function SwitchesPage({ className }: Props) {
         name="checkedA"
         inputProps={{ 'aria-label': 'secondary checkbox' }}
       />
+      <span css={text}>{on ? '开' : '关'}</span>
     </div>
   );
 }

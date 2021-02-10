@@ -8,8 +8,8 @@ import { outlineNone } from '../../styles/interactivity';
 
 export const button = css(
   roundedSm,
-  px(4),
-  py(1.5),
+  px(5),
+  py(1),
   shadow,
   border2,
   css`

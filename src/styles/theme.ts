@@ -1,4 +1,5 @@
 import { createMuiTheme, Theme } from '@material-ui/core/styles';
+import Zoom from '@material-ui/core/Zoom';
 
 export function createTheme(scheme: 'dark' | 'light'): Theme {
   return createMuiTheme({
@@ -11,8 +12,12 @@ export function createTheme(scheme: 'dark' | 'light'): Theme {
       MuiSwitch: {
         defaultProps: {
           disableRipple: true,
-          color: 'default',
           // size: 'small',
+        },
+      },
+      MuiTooltip: {
+        defaultProps: {
+          TransitionComponent: Zoom,
         },
       },
     },

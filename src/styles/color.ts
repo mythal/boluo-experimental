@@ -267,6 +267,7 @@ export const blueGray = {
 export const primary = green;
 export const black = '#000';
 export const white = '#fff';
+export const bgDark = gray['900'];
 
 export const colors = {
   black,
@@ -292,6 +293,7 @@ export const colors = {
   fuchsia,
   pink,
   rose,
+  bgDark,
 };
 
 export default colors;

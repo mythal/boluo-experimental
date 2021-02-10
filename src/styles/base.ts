@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { CSSInterpolation } from '@emotion/serialize';
-import { math } from 'polished';
+import { math, transparentize } from 'polished';
 
 // Breakpoints https://tailwindcss.com/docs/breakpoints
 export const breakpoint = {
@@ -72,6 +72,10 @@ export const switchToLight = () => {
 
 export const switchToAuto = () => {
   document.documentElement.dataset['theme'] = 'auto';
+};
+
+export const alpha = (color: string, alpha = 100) => {
+  return alpha === 100 ? color : transparentize((100 - alpha) / 100, color);
 };
 
 export function memoize<R, T extends (...args: any[]) => R>(f: T): T {

@@ -1,12 +1,10 @@
 import { css } from '@emotion/react';
-import { opacify } from 'polished';
-import { memoize, size } from './base';
+import { alpha, memoize, size } from './base';
 
 // Text Color https://tailwindcss.com/docs/text-color
-export const textColor = memoize((color: string, opacity = 100) => {
-  const finalColor = opacity >= 100 ? color : opacify(opacity / 100, color);
+export const textColor = memoize((color: string, a = 100) => {
   return css`
-    color: ${finalColor};
+    color: ${alpha(color, a)};
   `;
 });
 export const textTransparent = css`
@@ -250,11 +248,10 @@ export const whitespacePreWrap = css`
 `;
 
 // Placeholder Color https://tailwindcss.com/docs/placeholder-color
-export const placeholderColor = memoize((color: string, opacity = 100) => {
-  const finalColor = opacity >= 100 ? color : opacify(opacity / 100, color);
+export const placeholderColor = memoize((color: string, a = 100) => {
   return css`
     &::placeholder {
-      color: ${finalColor};
+      color: ${alpha(color, a)};
     }
   `;
 });

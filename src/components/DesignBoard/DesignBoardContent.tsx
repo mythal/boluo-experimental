@@ -7,7 +7,7 @@ import { py } from '../../styles/spacing';
 import { useRecoilValue } from 'recoil';
 import { css } from '@emotion/react';
 import { bgColor } from '../../styles/backgrounds';
-import { gray } from '../../styles/color';
+import { bgDark } from '../../styles/color';
 import { transitionColors } from '../../styles/transitions';
 import { Theme, ThemeProvider } from '@material-ui/core/styles';
 import { useMemo } from 'react';
@@ -23,7 +23,7 @@ const style = css(
   transitionColors,
   css`
     &[data-theme='dark'] {
-      ${bgColor(gray['900'])};
+      ${bgColor(bgDark)};
     }
   `
 );

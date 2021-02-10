@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
-import { opacify } from 'polished';
-import { memoize } from './base';
+import { alpha, memoize } from './base';
 
 // Background Attachment https://tailwindcss.com/docs/background-attachment
 export const bgFixed = css`
@@ -35,10 +34,9 @@ export const bgTransparent = css`
 export const bgCurrent = css`
   background-color: currentColor;
 `;
-export const bgColor = memoize((color: string, opacity = 100) => {
-  const finalColor = opacity >= 100 ? color : opacify(opacity / 100, color);
+export const bgColor = memoize((color: string, a = 100) => {
   return css`
-    background-color: ${finalColor};
+    background-color: ${alpha(color, a)};
   `;
 });
 

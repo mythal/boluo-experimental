@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
-import { opacify } from 'polished';
-import { memoize } from './base';
+import { alpha, memoize } from './base';
 
 const sm = '0.125rem';
 const normal = '0.25rem';
@@ -115,10 +114,9 @@ export const borderB8 = css`
   border-bottom-width: 8px;
 `;
 // Border Color https://tailwindcss.com/docs/border-color
-export function borderColor(color: string, opacity = 100) {
-  const finalColor = opacity >= 100 ? color : opacify(opacity / 100, color);
+export function borderColor(color: string, a = 100) {
   return css`
-    border-color: ${finalColor};
+    border-color: ${alpha(color, a)};
   `;
 }
 
@@ -166,11 +164,10 @@ export const divideCurrent = css`
     border-color: currentColor;
   }
 `;
-export const divideColor = memoize((color: string, opacity = 100) => {
-  const finalColor = opacity >= 100 ? color : opacify(opacity / 100, color);
+export const divideColor = memoize((color: string, a = 100) => {
   return css`
     & > * + * {
-      border-color: ${finalColor};
+      border-color: ${alpha(color, a)};
     }
   `;
 });
