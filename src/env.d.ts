@@ -1,9 +1,11 @@
 /// <reference types="@emotion/react/types/css-prop" />
 
 declare module '*.svg' {
-  import * as React from 'react';
-
-  const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-
-  export default ReactComponent;
+  export interface SpriteSymbol {
+    id: string;
+    viewBox: string;
+    url: string;
+  }
+  const spriteSymbol: SpriteSymbol;
+  export default spriteSymbol;
 }

@@ -1,13 +1,8 @@
-import { lazy, memo, Suspense, Component, LazyExoticComponent, FunctionComponent, SVGProps } from 'react';
-import PlaceholderIcon from '../../assets/icons/square-regular.svg';
-
-export type IconComponent = LazyExoticComponent<FunctionComponent<SVGProps<SVGSVGElement>>>;
-
-export const icons = {
-  light: lazy(() => import('../../assets/icons/sun-solid.svg')),
-  dark: lazy(() => import('../../assets/icons/moon-solid.svg')),
-  spinner: lazy(() => import('../../assets/icons/spinner-solid.svg')),
-};
+import { memo } from 'react';
+import placeholder from '../../assets/icons/square-regular.svg';
+import dark from '../../assets/icons/moon-solid.svg';
+import light from '../../assets/icons/sun-solid.svg';
+import spinner from '../../assets/icons/spinner-solid.svg';
 
 export type IconKey = keyof typeof icons;
 
@@ -16,34 +11,19 @@ interface Props {
   className?: string;
 }
 
+const icons = {
+  placeholder,
+  dark,
+  light,
+  spinner,
+};
+
 export const Icon = memo<Props>(({ icon, className }) => {
-  const IconComponent: IconComponent = icons[icon];
-  const fallbackIcon = <PlaceholderIcon className={className} width="1em" />;
+  const sprite = icons[icon];
   return (
-    <IconErrorBoundary className={className}>
-      <Suspense fallback={fallbackIcon}>
-        <IconComponent width="1em" className={className} />
-      </Suspense>
-    </IconErrorBoundary>
+    <svg className={className} viewBox={sprite.viewBox} width="1em" height="1em">
+      <use xlinkHref={sprite.url}/>
+    </svg>
   );
 });
 Icon.displayName = 'Icon';
-
-class IconErrorBoundary extends Component<{ className?: string }, { error: boolean }> {
-  constructor(props: { className?: string }) {
-    super(props);
-    this.state = { error: false };
-  }
-
-  static getDerivedStateFromError() {
-    return { error: true };
-  }
-
-  render() {
-    if (this.state.error) {
-      return <PlaceholderIcon className={this.props.className} width="1em" />;
-    } else {
-      return this.props.children;
-    }
-  }
-}
