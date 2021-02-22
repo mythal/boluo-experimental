@@ -1,19 +1,22 @@
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { AppError } from './AppError';
+import { Oops } from './Oops';
 import { AppLoading } from './AppLoading';
 import { Home } from './Home';
 import { PageNotFound } from './PageNotFound';
-
-const DesignBoard = lazy(() => import('./DesignBoard'));
+import { ErrorTrigger } from './scaffolding/ErrorTrigger';
+import { Design } from './scaffolding/Design';
 
 export function App() {
   return (
-    <AppError>
+    <Oops>
       <Suspense fallback={<AppLoading />}>
         <Switch>
           <Route path="/design">
-            <DesignBoard />
+            <Design/>
+          </Route>
+          <Route path='/error'>
+            <ErrorTrigger/>
           </Route>
           <Route path="/" exact>
             <Home />
@@ -23,6 +26,6 @@ export function App() {
           </Route>
         </Switch>
       </Suspense>
-    </AppError>
+    </Oops>
   );
 }

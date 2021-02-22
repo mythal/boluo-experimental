@@ -8,14 +8,18 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const rootPath = path.resolve(__dirname);
+
+const ANALYZE = Boolean(process.env.ANALYZE) || false;
 const PRODUCTION = process.env.NODE_ENV === 'production';
-const REMOTE_BACKEND = Boolean(process.env.REMOTE_BACKEND) || false;
+const BACKEND = process.env.BACKEND || 'https://boluo.chat';
+
+const favicon = PRODUCTION ? path.resolve(rootPath, 'src/assets/logo.svg') : path.resolve(rootPath, 'src/assets/development-favicon.svg')
 
 module.exports = {
   entry: './src/index.tsx',
-
   // https://webpack.js.org/configuration/devtool/
   devtool: PRODUCTION ? 'source-map' : 'eval-cheap-module-source-map',
   mode: PRODUCTION ? 'production' : 'development',
@@ -28,14 +32,18 @@ module.exports = {
   },
 
   plugins: [
-    new ReactRefreshWebpackPlugin(),
-    new SpriteLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.resolve(rootPath, 'public/index.hbs'),
-      inject: false,
-      favicon: path.resolve(rootPath, 'src/assets/development-favicon.svg'),
-    }),
     new CleanWebpackPlugin(),
+    PRODUCTION ? false : new ReactRefreshWebpackPlugin(),
+    new SpriteLoaderPlugin(),
+    PRODUCTION && ANALYZE && new BundleAnalyzerPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.resolve(rootPath, 'src/index.hbs'),
+      templateParameters: {
+        PRODUCTION,
+      },
+      inject: false,
+      favicon,
+    }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
       DEBUG: !PRODUCTION,
@@ -44,7 +52,7 @@ module.exports = {
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
     }),
-  ],
+  ].filter(Boolean),
 
   devServer: {
     hot: true,
@@ -54,13 +62,13 @@ module.exports = {
     // static: [
     //   path.resolve(rootPath, 'public')
     // ],
-    // proxy: {
-    //   '/api': {
-    //     target: REMOTE_BACKEND ? 'https://boluo.chat' : 'http://127.0.0.1:3000',
-    //     ws: true,
-    //     secure: false,
-    //   },
-    // },
+    proxy: {
+      '/api': {
+        target: BACKEND,
+        ws: true,
+        secure: false,
+      },
+    },
   },
 
   resolve: {
@@ -74,12 +82,21 @@ module.exports = {
         loader: 'handlebars-loader',
       },
       {
-        test: /\.[jt]sx?$/,
+        test: /\.(ts|js|tsx|jsx)$/,
         exclude: /node_modules/,
         use: [
           {
             loader: 'babel-loader',
+            options: {
+              plugins: PRODUCTION ? [] : ["react-refresh/babel"],
+            },
           },
+          {
+            loader: '@linaria/webpack-loader',
+            options: {
+              sourceMap: !PRODUCTION,
+            },
+          }
         ],
       },
       {
@@ -98,12 +115,10 @@ module.exports = {
     ],
   },
 
-  externals: PRODUCTION
-    ? {
-        react: 'React',
-        'react-dom': 'ReactDOM',
-      }
-    : {},
+  externals: {
+    react: 'React',
+    'react-dom': 'ReactDOM',
+  },
 
   optimization: {
     minimize: PRODUCTION,

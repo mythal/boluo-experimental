@@ -5,11 +5,10 @@
   "author": "coppa <sortal@protonmail.com>",
   "license": "GPL-3.0",
   "scripts": {
-    "start": "webpack serve"
+    "start": "webpack serve",
+    "build": "NODE_ENV=production webpack build"
   },
   "dependencies": {
-    "@emotion/react": "^11.1.4",
-    "@emotion/styled": "^11.0.0",
     "@material-ui/core": "5.0.0-alpha.25",
     "polished": "^4.1.1",
     "react": "^17.0.1",
@@ -21,7 +20,11 @@
     "@babel/core": "^7.12.17",
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.17",
-    "@emotion/babel-plugin": "^11.1.2",
+    "@linaria/babel-preset": "^3.0.0-beta.1",
+    "@linaria/core": "^3.0.0-beta.1",
+    "@linaria/react": "^3.0.0-beta.1",
+    "@linaria/shaker": "^3.0.0-beta.1",
+    "@linaria/webpack-loader": "^3.0.0-beta.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
@@ -54,6 +57,7 @@
     "ts-node": "^9.1.1",
     "typescript": "^4.1.5",
     "webpack": "^5.23.0",
+    "webpack-bundle-analyzer": "^4.4.0",
     "webpack-cli": "^4.3.1",
     "webpack-dev-server": "^3.11.2"
   },

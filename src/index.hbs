@@ -1,11 +1,18 @@
-{{! Template Syntax https://handlebarsjs.com/guide/ }}
 <!DOCTYPE html>
+{{! Template Syntax https://handlebarsjs.com/guide/ }}
 <html lang="zh" class="theme-auto">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="次世代的跑团（TRPG）工具" />
+    {{#if PRODUCTION}}
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    {{else}}
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    {{/if}}
     {{{ htmlWebpackPlugin.tags.headTags }}}
     <title>菠萝</title>
   </head>
