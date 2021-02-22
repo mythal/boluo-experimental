@@ -1,16 +1,16 @@
 import { App } from './components/App';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { RecoilRoot } from 'recoil';
+import { Provider } from 'jotai'
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <RecoilRoot>
+    <Provider>
       <BrowserRouter>
         <App/>
       </BrowserRouter>
-    </RecoilRoot>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
