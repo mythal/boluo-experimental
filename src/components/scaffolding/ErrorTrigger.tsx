@@ -5,7 +5,7 @@ export function ErrorTrigger() {
   useEffect(() => {
     console.log(dice);
     if (dice < 0.5) {
-      throw Error();
+      throw new Error("This is fine.");
     }
   });
   return <p>nothing happen</p>;

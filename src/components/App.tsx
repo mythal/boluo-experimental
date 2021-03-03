@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Oops } from './Oops';
+import { ErrorBoundary } from './ErrorBoundary';
 import { AppLoading } from './AppLoading';
 import { Home } from './Home';
 import { PageNotFound } from './PageNotFound';
@@ -9,7 +9,7 @@ import { Design } from './scaffolding/Design';
 
 export function App() {
   return (
-    <Oops>
+    <ErrorBoundary fallback={"An error has occurred"}>
       <Suspense fallback={<AppLoading />}>
         <Switch>
           <Route path="/design">
@@ -26,6 +26,6 @@ export function App() {
           </Route>
         </Switch>
       </Suspense>
-    </Oops>
+    </ErrorBoundary>
   );
 }

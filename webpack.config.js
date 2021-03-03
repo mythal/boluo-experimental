@@ -1,4 +1,5 @@
 // https://webpack.js.org/guides/
+require('dotenv').config();
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const webpack = require('webpack');
 const path = require('path');
@@ -9,6 +10,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 
 const rootPath = path.resolve(__dirname);
 
@@ -25,7 +27,8 @@ module.exports = {
   mode: PRODUCTION ? 'production' : 'development',
 
   output: {
-    filename: 'main.[contenthash].js',
+    filename: '[contenthash].js',
+    sourceMapFilename: "[contenthash].js.map",
     chunkFilename: '[id].[contenthash].js',
     path: path.resolve(rootPath, 'dist'),
     publicPath: '/',
@@ -45,12 +48,23 @@ module.exports = {
       favicon,
     }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'development',
+      NODE_ENV: process.env.NODE_ENV || 'development',
       DEBUG: !PRODUCTION,
+      SENTRY_DSN: process.env.SENTRY_DSN || '',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
+    }),
+    PRODUCTION && process.env.SENTRY_AUTH_TOKEN && new SentryWebpackPlugin({
+      // sentry-cli configuration
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      org: "mythal",
+      project: "boluo-experimental",
+
+      // webpack specific configuration
+      include: ".",
+      ignore: ["node_modules", "webpack.config.js"],
     }),
   ].filter(Boolean),
 
