@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo } from 'react';
-import * as Sentry from "@sentry/react";
+import {ErrorBoundary as SentryErrorBoundary} from "@sentry/react";
 
 interface Props {
   className?: string;
@@ -10,7 +10,7 @@ interface State {
   error: unknown;
 }
 
-export class ErrorBoundary extends Component<Props, State> {
+export class TopLevelErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { error: undefined };
@@ -24,14 +24,14 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   render() {
-    if (this.state.error) {
-      return this.props.fallback;
-    } else if (process.env.SENTRY_DSN) {
+    if (process.env.SENTRY_DSN) {
       return (
-        <Sentry.ErrorBoundary fallback={this.props.fallback}>
+        <SentryErrorBoundary fallback={this.props.fallback}>
           {this.props.children}
-        </Sentry.ErrorBoundary>
+        </SentryErrorBoundary>
       );
+    } else if (this.state.error) {
+      return this.props.fallback;
     } else {
       return this.props.children;
     }
