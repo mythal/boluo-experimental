@@ -101,15 +101,6 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
-            options: {
-              plugins: PRODUCTION ? [] : ["react-refresh/babel"],
-            },
-          },
-          {
-            loader: '@linaria/webpack-loader',
-            options: {
-              sourceMap: !PRODUCTION,
-            },
           }
         ],
       },
