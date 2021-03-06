@@ -40,7 +40,7 @@ function Input() {
   )
 }
 
-export function Design() {
+export function Playground() {
   return (
     <div>
       <span css={[block, uppercase]}>design</span>

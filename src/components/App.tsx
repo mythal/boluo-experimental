@@ -5,15 +5,15 @@ import { AppLoading } from './AppLoading';
 import { Home } from './Home';
 import { PageNotFound } from './PageNotFound';
 import { ErrorTrigger } from './scaffolding/ErrorTrigger';
-import { Design } from './scaffolding/Design';
+import { Scaffolding } from './scaffolding/Scaffolding';
 
 export function App() {
   return (
-    <TopLevelErrorBoundary fallback={<p>An error has occurred</p>}>
+    <TopLevelErrorBoundary>
       <Suspense fallback={<AppLoading />}>
         <Switch>
-          <Route path="/design">
-            <Design/>
+          <Route path="/dev">
+            <Scaffolding/>
           </Route>
           <Route path='/error'>
             <ErrorTrigger/>

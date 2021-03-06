@@ -1,9 +1,17 @@
 import React, { Component, ErrorInfo } from 'react';
 import {ErrorBoundary as SentryErrorBoundary} from "@sentry/react";
 
+export function Oops() {
+  return (
+    <div>
+      <h1>糟糕</h1>
+      <p>有什么搞砸了！</p>
+    </div>
+  )
+}
+
 interface Props {
   className?: string;
-  fallback: React.ReactNode,
 }
 
 interface State {
@@ -26,12 +34,12 @@ export class TopLevelErrorBoundary extends Component<Props, State> {
   render() {
     if (process.env.SENTRY_DSN) {
       return (
-        <SentryErrorBoundary fallback={this.props.fallback}>
+        <SentryErrorBoundary fallback={<Oops/>}>
           {this.props.children}
         </SentryErrorBoundary>
       );
     } else if (this.state.error) {
-      return this.props.fallback;
+      return <Oops/>;
     } else {
       return this.props.children;
     }
