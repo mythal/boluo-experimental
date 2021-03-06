@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
-import { memoize, size } from './base';
+import { size } from './base';
 
 // Margin https://tailwindcss.com/docs/margin
 
-export const mx = memoize(
+export const mx = (
   (n: number) => css`
     margin-left: ${size(n)};
     margin-right: ${size(n)};
@@ -15,7 +15,7 @@ export const mxAuto = css`
   margin-right: auto;
 `;
 
-export const my = memoize(
+export const my = (
   (n: number) => css`
     margin-top: ${size(n)};
     margin-bottom: ${size(n)};
@@ -27,7 +27,7 @@ export const myAuto = css`
   margin-bottom: auto;
 `;
 
-export const m = memoize(
+export const m = (
   (n: number) => css`
     margin: ${size(n)};
   `
@@ -37,7 +37,7 @@ export const mAuto = css`
   margin: auto;
 `;
 
-export const mt = memoize(
+export const mt = (
   (n: number) => css`
     margin-top: ${size(n)};
   `
@@ -47,7 +47,7 @@ export const mtAuto = css`
   margin-top: auto;
 `;
 
-export const mr = memoize(
+export const mr = (
   (n: number) => css`
     margin-right: ${size(n)};
   `
@@ -57,7 +57,7 @@ export const mrAuto = css`
   margin-right: auto;
 `;
 
-export const mb = memoize(
+export const mb = (
   (n: number) => css`
     margin-bottom: ${size(n)};
   `
@@ -67,7 +67,7 @@ export const mbAuto = css`
   margin-bottom: auto;
 `;
 
-export const ml = memoize(
+export const ml = (
   (n: number) => css`
     margin-left: ${size(n)};
   `
@@ -79,7 +79,7 @@ export const mlAuto = css`
 
 // Padding https://tailwindcss.com/docs/padding
 
-export const px = memoize(
+export const px = (
   (n: number) => css`
     padding-left: ${size(n)};
     padding-right: ${size(n)};
@@ -91,7 +91,7 @@ export const pxPx = css`
   padding-right: 1px;
 `;
 
-export const py = memoize(
+export const py = (
   (n: number) => css`
     padding-top: ${size(n)};
     padding-bottom: ${size(n)};
@@ -103,7 +103,7 @@ export const pyPx = css`
   padding-bottom: 1px;
 `;
 
-export const p = memoize(
+export const p = (
   (n: number) => css`
     padding: ${size(n)};
   `
@@ -113,7 +113,7 @@ export const pPx = css`
   padding: 1px;
 `;
 
-export const pt = memoize(
+export const pt = (
   (n: number) => css`
     padding-top: ${size(n)};
   `
@@ -123,7 +123,7 @@ export const ptPx = css`
   padding-top: 1px;
 `;
 
-export const pr = memoize(
+export const pr = (
   (n: number) => css`
     padding-right: ${size(n)};
   `
@@ -133,7 +133,7 @@ export const prPx = css`
   padding-right: 1px;
 `;
 
-export const pb = memoize(
+export const pb = (
   (n: number) => css`
     padding-bottom: ${size(n)};
   `
@@ -143,7 +143,7 @@ export const pbPx = css`
   padding-bottom: 1px;
 `;
 
-export const pl = memoize(
+export const pl = (
   (n: number) => css`
     padding-left: ${size(n)};
   `
@@ -155,14 +155,14 @@ export const plPx = css`
 
 // Space Between https://tailwindcss.com/docs/space
 export const spaceY0 = my(0);
-export const spaceY = memoize(
+export const spaceY = (
   (n: number) => css`
     & > * + * {
       margin-top: ${size(n)};
     }
   `
 );
-export const spaceYRev = memoize(
+export const spaceYRev = (
   (n: number) => css`
     & > * + * {
       margin-bottom: ${size(n)};
@@ -170,14 +170,14 @@ export const spaceYRev = memoize(
   `
 );
 export const spaceX0 = mx(0);
-export const spaceX = memoize(
+export const spaceX = (
   (n: number) => css`
     & > * + * {
       margin-left: ${size(n)};
     }
   `
 );
-export const spaceXRev = memoize(
+export const spaceXRev = (
   (n: number) => css`
     & > * + * {
       margin-right: ${size(n)};

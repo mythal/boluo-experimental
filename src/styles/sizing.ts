@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { breakpoint, memoize, size } from './base';
+import { breakpoint, size } from './base';
 
 export const wAuto = css`
   width: auto;
@@ -135,13 +135,11 @@ export const hScreen = css`
 export const h0 = css`
   height: 0;
 `;
-export const h = memoize(
-  (n: number) =>
-    css`
-      height: ${size(n)};
-    `
-);
-export const hRatio = memoize((x: number, y: number) => {
+export const h = (n: number) =>
+  css`
+    height: ${size(n)};
+  `;
+export const hRatio = ((x: number, y: number) => {
   const percentage = (x / y) * 100;
   return css`
     height: ${percentage.toFixed(8)}%;
@@ -172,9 +170,7 @@ export const maxHFull = css`
 export const maxHScreen = css`
   max-height: 100vh;
 `;
-export const maxH = memoize(
-  (n: number) =>
-    css`
-      max-height: ${size(n)};
-    `
-);
+export const maxH = (n: number) =>
+  css`
+    max-height: ${size(n)};
+  `;

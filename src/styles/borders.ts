@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { alpha, memoize } from './base';
+import { alpha } from './base';
 import { Property } from 'csstype';
 
 const sm = '0.125rem';
@@ -139,20 +139,16 @@ export const borderNone = css`
 `;
 
 // Divide Width https://tailwindcss.com/docs/divide-width
-export const divideY = memoize(
-  (n: number) => css`
-    & > * + * {
-      border-top-width: calc(${n}px);
-    }
-  `
-);
-export const divideYRev = memoize(
-  (n: number) => css`
-    & > * + * {
-      border-bottom-width: calc(${n}px);
-    }
-  `
-);
+export const divideY = (n: number) => css`
+  & > * + * {
+    border-top-width: calc(${n}px);
+  }
+`;
+export const divideYRev = (n: number) => css`
+  & > * + * {
+    border-bottom-width: calc(${n}px);
+  }
+`;
 
 // Divide Color https://tailwindcss.com/docs/divide-color
 export const divideTransparent = css`
@@ -165,13 +161,13 @@ export const divideCurrent = css`
     border-color: currentColor;
   }
 `;
-export const divideColor = memoize((color: Property.BorderColor, a = 100) => {
+export const divideColor = (color: Property.BorderColor, a = 100) => {
   return css`
     & > * + * {
       border-color: ${alpha(color, a)};
     }
   `;
-});
+};
 // Divide Style https://tailwindcss.com/docs/divide-style
 export const divideSolid = css`
   & > * + * {

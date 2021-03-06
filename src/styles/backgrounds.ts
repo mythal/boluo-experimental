@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { alpha, memoize } from './base';
+import { alpha } from './base';
 import { Property } from 'csstype';
 
 // Background Attachment https://tailwindcss.com/docs/background-attachment
@@ -35,12 +35,11 @@ export const bgTransparent = css`
 export const bgCurrent = css`
   background-color: currentColor;
 `;
-// eslint-disable-next-line @typescript-eslint/no-inferrable-types
-export const bgColor = memoize((color: Property.BackgroundColor, a: number = 100) => {
+export const bgColor = (color: Property.BackgroundColor, a: number = 100) => {
   return css`
     background-color: ${alpha(color, a)};
   `;
-});
+};
 
 // Background Repeat https://tailwindcss.com/docs/background-repeat
 export const bgRepeat = css`

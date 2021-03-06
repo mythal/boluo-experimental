@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { memoize, size } from './base';
+import { size } from './base';
 
 // Position https://tailwindcss.com/docs/position
 export const staticPosition = css`
@@ -172,7 +172,7 @@ export const overscrollNone = css`
 // ...
 
 // Top / Right / Bottom / Left https://tailwindcss.com/docs/top-right-bottom-left
-export const inset = memoize(
+export const inset = (
   (n: number) => css`
     top: ${size(n)};
     right: ${size(n)};
@@ -180,34 +180,34 @@ export const inset = memoize(
     left: ${size(n)};
   `
 );
-export const insetX = memoize(
+export const insetX = (
   (n: number) => css`
     right: ${size(n)};
     left: ${size(n)};
   `
 );
-export const insetY = memoize(
+export const insetY = (
   (n: number) => css`
     top: ${size(n)};
     bottom: ${size(n)};
   `
 );
-export const top = memoize(
+export const top = (
   (n: number) => css`
     top: ${size(n)};
   `
 );
-export const right = memoize(
+export const right = (
   (n: number) => css`
     right: ${size(n)};
   `
 );
-export const bottom = memoize(
+export const bottom = (
   (n: number) => css`
     bottom: ${size(n)};
   `
 );
-export const left = memoize(
+export const left = (
   (n: number) => css`
     left: ${size(n)};
   `
@@ -243,7 +243,7 @@ export const z50 = css`
 export const zAuto = css`
   z-index: auto;
 `;
-export const zIndex = memoize(
+export const zIndex = (
   (x: number) =>
     css`
       z-index: ${x};

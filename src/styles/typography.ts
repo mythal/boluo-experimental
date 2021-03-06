@@ -1,13 +1,13 @@
 import { css } from '@emotion/react';
-import { alpha, memoize, size } from './base';
+import { alpha, size } from './base';
 import { Property } from 'csstype';
 
 // Text Color https://tailwindcss.com/docs/text-color
-export const textColor = memoize((color: Property.Color, a = 100) => {
+export const textColor = (color: Property.Color, a = 100) => {
   return css`
     color: ${alpha(color, a)};
   `;
-});
+};
 export const textTransparent = css`
   color: transparent;
 `;
@@ -249,13 +249,13 @@ export const whitespacePreWrap = css`
 `;
 
 // Placeholder Color https://tailwindcss.com/docs/placeholder-color
-export const placeholderColor = memoize((color: string, a = 100) => {
+export const placeholderColor = (color: string, a = 100) => {
   return css`
     &::placeholder {
       color: ${alpha(color, a)};
     }
   `;
-});
+};
 
 // Vertical Alignment https://tailwindcss.com/docs/vertical-align
 export const alignBaseline = css`

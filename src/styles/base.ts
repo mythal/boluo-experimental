@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { CSSInterpolation } from '@emotion/serialize';
-import { math, transparentize } from 'polished';
+import { transparentize } from 'color2k';
 import { Property } from 'csstype';
 
 // Breakpoints https://tailwindcss.com/docs/breakpoints
@@ -22,16 +22,8 @@ export const lg = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.
 export const xl = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.xl, styles);
 export const xl2 = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.xl, styles);
 
-const sizeCache: Record<number, string | undefined> = {};
 export function size(n: number): string {
-  const cachedResult = sizeCache[n];
-  if (cachedResult === undefined) {
-    const result = math(`0.25rem * ${n}`);
-    sizeCache[n] = result;
-    return result;
-  } else {
-    return cachedResult;
-  }
+  return `${n*0.25}rem`
 }
 
 export const disabled = (...styles: CSSInterpolation[]): CSSInterpolation => ({
@@ -76,28 +68,5 @@ export const switchToAuto = () => {
 };
 
 export const alpha = (color: Property.Color, alpha = 100) => {
-  return alpha === 100 ? color : transparentize((100 - alpha) / 100, color);
+  return alpha === 100 ? color : transparentize(color, (100 - alpha) / 100);
 };
-
-export function memoize<R, T extends (...args: any[]) => R>(f: T): T {
-  const memory = new Map<string | number, R>();
-
-  const g = (...args: any[]) => {
-    let key: string | number;
-    if (args.length === 1) {
-      const arg = args[0];
-      if (typeof arg === 'string' || typeof arg === 'number') {
-        key = arg;
-      }
-      key = JSON.stringify(args);
-    } else {
-      key = JSON.stringify(args);
-    }
-    if (!memory.get(key)) {
-      memory.set(key, f(...args));
-    }
-    return memory.get(key);
-  };
-
-  return g as T;
-}
