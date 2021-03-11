@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from '@linaria/core';
 
 // Screen Readers https://tailwindcss.com/docs/screen-readers
 

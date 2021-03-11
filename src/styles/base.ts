@@ -1,72 +1,33 @@
-import { css } from '@emotion/react';
-import { CSSInterpolation } from '@emotion/serialize';
-import { transparentize } from 'color2k';
-import { Property } from 'csstype';
+const sizeFactor = 0.25;
+export const size = (n: number): string => `${n * sizeFactor}rem`;
+export type Scheme = 'light' | 'dark';
 
-// Breakpoints https://tailwindcss.com/docs/breakpoints
-export const breakpoint = {
-  sm: '640px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1280px',
-  xl2: '1536px',
-};
-
-export const responsive = (breakPoint: string, ...styles: Array<CSSInterpolation>): CSSInterpolation => ({
-  [`@media (min-width: ${breakPoint})`]: css(styles),
-});
-
-export const sm = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.sm, styles);
-export const md = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.md, styles);
-export const lg = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.lg, styles);
-export const xl = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.xl, styles);
-export const xl2 = (...styles: Array<CSSInterpolation>) => responsive(breakpoint.xl, styles);
-
-export function size(n: number): string {
-  return `${n*0.25}rem`
+export const schemeToClassName = (scheme: string | null): string => {
+  if (scheme === null || scheme === 'auto' || !['dark', 'light'].includes(scheme)) {
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'scheme-dark';
+    } else {
+      return 'scheme-light';
+    }
+  }
+  return `scheme-${scheme}`;
 }
 
-export const disabled = (...styles: CSSInterpolation[]): CSSInterpolation => ({
-  '&:disabled': css(styles),
-});
-export const hover = (...styles: CSSInterpolation[]): CSSInterpolation => ({
-  '&:hover': css(styles),
-});
-export const focus = (...styles: CSSInterpolation[]): CSSInterpolation => ({
-  '&:focus': css(styles),
-});
-export const active = (...styles: CSSInterpolation[]): CSSInterpolation => ({
-  '&:active': css(styles),
-});
-
-// Dark Mode https://tailwindcss.com/docs/dark-mode
-export const dark = (...styles: CSSInterpolation[]) => {
-  const styles_ = css(styles);
-  return css({
-    '[data-theme="dark"] &': styles_,
-    '[data-theme="auto"] &': {
-      '@media (prefers-color-scheme: dark)': styles_,
-    },
-  });
+export const setSchemeClass = () => {
+  for (const className of document.documentElement.classList.values()) {
+    if (className.startsWith("scheme-")) {
+      document.documentElement.classList.remove(className);
+    }
+  }
+  const className = schemeToClassName(localStorage.getItem('scheme'));
+  document.documentElement.classList.add(className);
 };
 
-export const resetThemeClasses = () => {
-  const html = document.documentElement;
-  delete html.dataset['theme'];
-};
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-export const switchToDark = () => {
-  document.documentElement.dataset['theme'] = 'dark';
-};
-
-export const switchToLight = () => {
-  document.documentElement.dataset['theme'] = 'light';
-};
-
-export const switchToAuto = () => {
-  document.documentElement.dataset['theme'] = 'auto';
-};
-
-export const alpha = (color: Property.Color, alpha = 100) => {
-  return alpha === 100 ? color : transparentize(color, (100 - alpha) / 100);
-};
+export function setHeight() {
+  if (isSafari) {
+    const root = document.getElementById("root")!;
+    // root.style.setProperty('--fill-height', '-webkit-fill-available');
+  }
+}

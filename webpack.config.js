@@ -1,4 +1,3 @@
-// https://webpack.js.org/guides/
 require('dotenv').config();
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const webpack = require('webpack');
@@ -8,9 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 
 const rootPath = path.resolve(__dirname);
 
@@ -22,7 +19,6 @@ const favicon = PRODUCTION ? path.resolve(rootPath, 'src/assets/logo.svg') : pat
 
 module.exports = {
   entry: './src/index.tsx',
-  // https://webpack.js.org/configuration/devtool/
   devtool: PRODUCTION ? 'source-map' : 'eval-cheap-module-source-map',
   mode: PRODUCTION ? 'production' : 'development',
 
@@ -37,7 +33,6 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     PRODUCTION ? false : new ReactRefreshWebpackPlugin(),
-    new SpriteLoaderPlugin(),
     PRODUCTION && ANALYZE && new BundleAnalyzerPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(rootPath, 'src/index.hbs'),
@@ -55,16 +50,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',
       chunkFilename: '[id].[contenthash].css',
-    }),
-    PRODUCTION && process.env.SENTRY_AUTH_TOKEN && new SentryWebpackPlugin({
-      // sentry-cli configuration
-      authToken: process.env.SENTRY_AUTH_TOKEN,
-      org: "mythal",
-      project: "boluo-experimental",
-
-      // webpack specific configuration
-      include: ".",
-      ignore: ["node_modules", "webpack.config.js"],
     }),
   ].filter(Boolean),
 
@@ -101,22 +86,23 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader',
+          },
+          {
+            loader: '@linaria/webpack-loader',
+            options: {
+              sourceMap: !PRODUCTION,
+            },
           }
         ],
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, { loader: 'css-loader' }],
+        use: [
+          PRODUCTION ? MiniCssExtractPlugin.loader: 'style-loader',
+          { loader: 'css-loader' }
+        ],
       },
-      {
-        test: /\.svg$/,
-        loader: 'svg-sprite-loader',
-        options: {
-          extract: true,
-          spriteFilename: '[hash].svg',
-        },
-      },
-      { test: /\.(png|jpe?g|gif)$/, use: ['file-loader'] },
+      { test: /\.(png|jpe?g|gif|svg)$/, type: 'asset/resource' },
     ],
   },
 

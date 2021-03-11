@@ -296,4 +296,3 @@ export const colors = {
   bgDark,
 };
 
-export default colors;

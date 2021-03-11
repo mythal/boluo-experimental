@@ -1,31 +1,15 @@
-import { css } from '@emotion/react';
+import { css } from '@linaria/core';
 import React, { useRef, useState } from 'react';
-import colors from '../../styles/color';
-import { rounded } from '../../styles/borders';
 import { size } from '../../styles/base';
-import { selectNone } from '../../styles/interactivity';
+import { scaffoldContainer } from './Scaffolding';
+import { controlStyle } from '../../styles/controls';
 
-
-const container = css`
-  padding: 4rem clamp(2rem, 10vw, 6rem);
-`;
-
-const text = css`
-  font-family: 'Palatino', serif;
-  margin: ${size(2)} 0;
-`;
-
-const button = css`
-  background-color: ${colors.gray['200']};
-  height: 2rem;
-  padding: 0 0.5rem;
-  ${rounded};
-
-  &:hover {
-    background-color: ${colors.gray['300']};
-  }
-`;
-
+const styles = {
+  text: css`
+    font-family: 'Palatino', serif;
+    margin: ${size(2)} 0;
+  `
+};
 
 class Trouble extends React.Component<unknown, { triggered: boolean }> {
   constructor(props: unknown) {
@@ -40,7 +24,7 @@ class Trouble extends React.Component<unknown, { triggered: boolean }> {
       throw new Error('Everything in fire');
     }
     return (
-      <p css={text}>Nothing happen.</p>
+      <p className={styles.text}>Nothing happen.</p>
     )
   }
 }
@@ -63,9 +47,8 @@ class LocalErrorBoundary extends React.Component<unknown, { error: unknown }> {
     if (this.state.error) {
       return (
         <div>
-          <p css={text}>有什么炸了</p>
-
-          <button css={button} onClick={() => this.setState({ error: null })}>重来</button>
+          <p className={styles.text}>有什么炸了</p>
+          <button className={controlStyle.button} onClick={() => this.setState({ error: null })}>重来</button>
         </div>
       );
     } else {
@@ -79,9 +62,9 @@ export function ErrorTrigger() {
   const troubleRef = useRef<Trouble>(null);
   const Wrapper = localErrorBoundary ? LocalErrorBoundary : React.Fragment;
   return (
-    <div css={container}>
-      <p css={text}><label css={selectNone}>局部错误边界 <input type="checkbox" checked={localErrorBoundary} onChange={e => setLocalErrorBoundary(e.target.checked)}/></label></p>
-      <button css={button} onClick={() => troubleRef.current?.trigger()}>Everything in fire</button>
+    <div className={scaffoldContainer}>
+      <p className={styles.text}><label>局部错误边界 <input type="checkbox" checked={localErrorBoundary} onChange={e => setLocalErrorBoundary(e.target.checked)}/></label></p>
+      <button className={controlStyle.button} onClick={() => troubleRef.current?.trigger()}>Everything in fire</button>
       <Wrapper>
         <Trouble ref={troubleRef}/>
       </Wrapper>
