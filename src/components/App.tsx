@@ -1,8 +1,7 @@
-import { Suspense, useEffect } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { Suspense, useEffect } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { TopLevelErrorBoundary } from './TopLevelErrorBoundary';
 import { AppLoading } from './AppLoading';
-import { BrowserRouter } from 'react-router-dom';
 import { Home } from './Home';
 import { PageNotFound } from './PageNotFound';
 import { ErrorTrigger } from './scaffolding/ErrorTrigger';

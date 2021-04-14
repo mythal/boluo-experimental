@@ -10,6 +10,9 @@ import { Controls } from './Controls';
 import { controlStyle } from '../../styles/controls';
 import { Icon } from '../Icon';
 import { sleep } from '../../utils';
+import { Internationalization } from './Internationalization';
+import { textColor } from '../../styles/theme';
+import { TranslationFunction, useTranslation } from '../../states/i18n';
 
 interface ScaffoldingItem {
   name: string;
@@ -17,11 +20,12 @@ interface ScaffoldingItem {
   component: React.ComponentType;
 }
 
-const items: ScaffoldingItem[] = [
-  { name: 'error', component: ErrorTrigger, title: '错误处理' },
-  { name: 'playground', component: Playground, title: '沙盒' },
-  { name: 'app-loading', component: AppLoading, title: '全页载入' },
-  { name: 'controls', component: Controls, title: '控件' },
+const generateItems = (_: TranslationFunction): ScaffoldingItem[] => [
+  { name: 'error', component: ErrorTrigger, title: _('Error Handling') },
+  { name: 'playground', component: Playground, title: _('Sandbox') },
+  { name: 'app-loading', component: AppLoading, title: _('Page Loading') },
+  { name: 'controls', component: Controls, title: _('Controls') },
+  { name: 'i18n', component: Internationalization, title: _('Internationalization') },
 ];
 
 const itemToRoute = (url: string) => (item: ScaffoldingItem) => {
@@ -40,6 +44,7 @@ export const scaffoldContainer = css`
 
 const styles = {
   sidebarItem: css`
+    color: ${textColor};
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -106,9 +111,11 @@ const itemToSidebarItem = (url: string) => (item: ScaffoldingItem) => {
 export function Scaffolding() {
   const { url, path } = useRouteMatch();
   const routerMapper = itemToRoute(url);
+  const _ = useTranslation();
   const sidebarItemMapper = itemToSidebarItem(path);
   const [startTransition, setStartTransition] = useState(false);
   const [scheme, setScheme] = useState<Scheme | null>(null);
+  const items = generateItems(_);
   const changeScheme = (scheme: Scheme | null) => async () => {
     setStartTransition(true);
     await sleep(0);

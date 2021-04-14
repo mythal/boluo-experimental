@@ -15,6 +15,11 @@ html, body, #root {
   overflow: hidden;
   height: var(--fill-height);
 }
+
+html {
+  color: #0000;
+}
+
 #root {
   overflow: hidden;
   font-family: var(--font-main);
