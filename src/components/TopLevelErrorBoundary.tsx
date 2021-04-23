@@ -1,5 +1,4 @@
 import React, { Component, ErrorInfo } from 'react';
-import {ErrorBoundary as SentryErrorBoundary} from "@sentry/react";
 
 export function Oops() {
   return (
@@ -32,13 +31,7 @@ export class TopLevelErrorBoundary extends Component<Props, State> {
   }
 
   render() {
-    if (process.env.SENTRY_DSN) {
-      return (
-        <SentryErrorBoundary fallback={<Oops/>}>
-          {this.props.children}
-        </SentryErrorBoundary>
-      );
-    } else if (this.state.error) {
+    if (this.state.error) {
       return <Oops/>;
     } else {
       return this.props.children;
