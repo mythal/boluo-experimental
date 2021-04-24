@@ -7,7 +7,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const rootPath = path.resolve(__dirname);
 
-const NODE_ENV = process.env.NODE_ENV ?? 'production';
+const NODE_ENV = process.env.NODE_ENV || 'production';
 const BACKEND = process.env.BACKEND || 'https://boluo.chat';
 
 const favicon =
