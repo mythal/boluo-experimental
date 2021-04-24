@@ -1,4 +1,4 @@
-import { css } from '@linaria/core';
+import { css } from '@emotion/react';
 import { colors } from './color';
 import { size } from './base';
 import { darken } from 'color2k';

@@ -2,7 +2,7 @@ import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Playground } from './Playground';
 import { ErrorTrigger } from './ErrorTrigger';
 import React, { useEffect, useState } from 'react';
-import { css, cx } from '@linaria/core';
+import { css } from '@emotion/react';
 import { AppLoading } from '../AppLoading';
 import { Scheme, schemeToClassName, size } from '../../styles/base';
 import { colors } from '../../styles/color';
@@ -102,7 +102,7 @@ const styles = {
 
 const itemToSidebarItem = (url: string) => (item: ScaffoldingItem) => {
   return (
-    <NavLink className={styles.sidebarItem} activeClassName="active" to={`${url}/${item.name}`} key={item.name}>
+    <NavLink css={styles.sidebarItem} activeClassName="active" to={`${url}/${item.name}`} key={item.name}>
       {item.title}
     </NavLink>
   );
@@ -129,13 +129,13 @@ export function Scaffolding() {
     return () => window.clearTimeout(handler);
   }, [startTransition]);
   return (
-    <div className={cx(styles.container, startTransition && 'color-transition')}>
-      <aside className={styles.sidebar}>
-        <div className={styles.schemeSwitchBar}>
+    <div css={[styles.container]}>
+      <aside css={styles.sidebar}>
+        <div css={styles.schemeSwitchBar}>
           <button
             data-icon={true}
             data-active={scheme === 'light'}
-            className={controlStyle.button}
+            css={controlStyle.button}
             onClick={changeScheme(scheme === 'light' ? null : 'light')}
           >
             <Icon id="sun"/>
@@ -143,7 +143,7 @@ export function Scaffolding() {
           <button
             data-icon={true}
             data-active={scheme === 'dark'}
-            className={controlStyle.button}
+            css={controlStyle.button}
             onClick={changeScheme(scheme === 'dark' ? null : 'dark')}
           >
             <Icon id="moon"/>
@@ -151,7 +151,7 @@ export function Scaffolding() {
         </div>
         {items.map(sidebarItemMapper)}
       </aside>
-      <main className={cx(schemeToClassName(scheme), styles.main)}>
+      <main css={[schemeToClassName(scheme), styles.main]}>
         <Switch>
           {items.map(routerMapper)}
         </Switch>

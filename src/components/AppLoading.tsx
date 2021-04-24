@@ -1,5 +1,6 @@
-import { css } from '@linaria/core';
+import { css } from '@emotion/react';
 
+import React from 'react';
 const styles = {
   container: css`
     display: flex;
@@ -13,8 +14,8 @@ const styles = {
 
 export function AppLoading() {
   return (
-    <div className={styles.container}>
-      <span className={styles.text}>Loading...</span>
+    <div css={styles.container}>
+      <span css={styles.text}>Loading...</span>
     </div>
   );
 }

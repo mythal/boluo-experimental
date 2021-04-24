@@ -1,9 +1,10 @@
 import React from 'react';
-import { css } from '@linaria/core';
+import { css } from '@emotion/react';
 import { languageAtom, useTranslation } from '../../states/i18n';
 import { useAtom } from 'jotai';
 import { size } from '../../styles/base';
 
+// noinspection CssOverwrittenProperties
 const styles = {
   container: css``,
   select: css`
@@ -65,16 +66,16 @@ export const Internationalization = () => {
     }
   }
   return (
-    <div className={styles.container}>
-      <div className={css`max-width: 10rem; padding: ${size(2)}`}>
-        <select className={styles.select} value={lang} onChange={handleChange}>
+    <div css={styles.container}>
+      <div css={css`max-width: 10rem; padding: ${size(2)}`}>
+        <select css={styles.select} value={lang} onChange={handleChange}>
           <option value="en">English</option>
           <option value="zh">中文</option>
           <option value="ja">日本語</option>
         </select>
       </div>
 
-      <div className={css`padding: ${size(2)}`}>
+      <div css={css`padding: ${size(2)}`}>
         {_('Internationalization')}
       </div>
     </div>

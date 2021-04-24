@@ -1,5 +1,5 @@
 import { scaffoldContainer } from './Scaffolding';
-import { css } from '@linaria/core';
+import { css } from '@emotion/react';
 import { size } from '../../styles/base';
 import { controlStyle } from '../../styles/controls';
 import { useState } from 'react';
@@ -37,17 +37,17 @@ const colorText = css`
 export function Controls() {
   const [color, setColor] = useState("#aabbcc");
   return (
-    <div className={scaffoldContainer}>
-      <div className={buttons}>
-        <button className={controlStyle.button}>按钮</button>
-        <button className={controlStyle.button}>Button</button>
-        <button className={controlStyle.button} disabled>Disabled Button</button>
-        <button data-kind="primary" className={controlStyle.button}>Primary</button>
-        <button data-kind="primary" className={controlStyle.button} disabled>Disabled Primary</button>
+    <div css={scaffoldContainer}>
+      <div css={buttons}>
+        <button css={controlStyle.button}>按钮</button>
+        <button css={controlStyle.button}>Button</button>
+        <button css={controlStyle.button} disabled>Disabled Button</button>
+        <button data-kind="primary" css={controlStyle.button}>Primary</button>
+        <button data-kind="primary" css={controlStyle.button} disabled>Disabled Primary</button>
       </div>
-      <div className={colorPickerContainer} style={{ backgroundColor: color }}>
-        <HexColorPicker className={colorPicker} color={color} onChange={setColor} />
-        <span className={colorText}>{color}</span>
+      <div css={colorPickerContainer} style={{ backgroundColor: color }}>
+        <HexColorPicker css={colorPicker} color={color} onChange={setColor} />
+        <span css={colorText}>{color}</span>
       </div>
     </div>
   )

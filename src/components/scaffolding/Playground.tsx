@@ -1,7 +1,7 @@
 import { atom, useAtom } from 'jotai';
 import { focusAtom } from 'jotai/optics';
 import { scaffoldContainer } from './Scaffolding';
-import { css } from '@linaria/core';
+import { css } from '@emotion/react';
 import { size } from '../../styles/base';
 import { controlStyle } from '../../styles/controls';
 
@@ -26,8 +26,8 @@ function Counter() {
   const [counter, setCounter] = useAtom(c)
   console.log('Counter render')
   return (
-    <div className={css`padding: 0 ${size(2)}`}>
-      {counter}s <button className={controlStyle.button} onClick={() => setCounter(counter => counter + 1)}>+1s</button>
+    <div css={css`padding: 0 ${size(2)}`}>
+      {counter}s <button css={controlStyle.button} onClick={() => setCounter(counter => counter + 1)}>+1s</button>
     </div>
   )
 }
@@ -44,7 +44,7 @@ function Input() {
 
 export function Playground() {
   return (
-    <div className={scaffoldContainer}>
+    <div css={scaffoldContainer}>
       <Counter/>
       <Input/>
       <div>
