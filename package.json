@@ -8,7 +8,9 @@
     "start": "NODE_ENV=development webpack serve --progress",
     "build": "NODE_ENV=production webpack build",
     "analyze": "NODE_ENV=production ANALYZE=True webpack build",
-    "clear": "rm -rf ./dist/*"
+    "clear": "rm -rf ./dist/*",
+    "format": "prettier --write --config ./.prettierrc .",
+    "check": "tsc --project tsconfig.json && eslint && prettier --check --config ./.prettierrc ./src"
   },
   "dependencies": {
     "@dnd-kit/core": "^3.0.1",

@@ -37,7 +37,6 @@ const itemToRoute = (url: string) => (item: ScaffoldingItem) => {
   );
 };
 
-
 export const scaffoldContainer = css`
   padding: 4rem clamp(2rem, 10vw, 6rem);
 `;
@@ -54,7 +53,8 @@ const styles = {
     &:hover {
       background-color: ${colors.gray['200']};
     }
-    &.active, &:active {
+    &.active,
+    &:active {
       font-weight: bold;
       background-color: ${colors.gray['300']};
     }
@@ -98,7 +98,7 @@ const styles = {
     justify-content: flex-end;
     padding: ${size(2)};
   `,
-}
+};
 
 const itemToSidebarItem = (url: string) => (item: ScaffoldingItem) => {
   return (
@@ -106,7 +106,7 @@ const itemToSidebarItem = (url: string) => (item: ScaffoldingItem) => {
       {item.title}
     </NavLink>
   );
-}
+};
 
 export function Scaffolding() {
   const { url, path } = useRouteMatch();
@@ -138,7 +138,7 @@ export function Scaffolding() {
             css={controlStyle.button}
             onClick={changeScheme(scheme === 'light' ? null : 'light')}
           >
-            <Icon id="sun"/>
+            <Icon id="sun" />
           </button>
           <button
             data-icon={true}
@@ -146,16 +146,14 @@ export function Scaffolding() {
             css={controlStyle.button}
             onClick={changeScheme(scheme === 'dark' ? null : 'dark')}
           >
-            <Icon id="moon"/>
+            <Icon id="moon" />
           </button>
         </div>
         {items.map(sidebarItemMapper)}
       </aside>
       <main css={[schemeToClassName(scheme), styles.main]}>
-        <Switch>
-          {items.map(routerMapper)}
-        </Switch>
+        <Switch>{items.map(routerMapper)}</Switch>
       </main>
     </div>
-  )
+  );
 }

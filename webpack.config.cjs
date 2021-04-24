@@ -10,7 +10,10 @@ const rootPath = path.resolve(__dirname);
 const NODE_ENV = process.env.NODE_ENV ?? 'production';
 const BACKEND = process.env.BACKEND || 'https://boluo.chat';
 
-const favicon = NODE_ENV === 'production' ? path.resolve(rootPath, 'src/assets/logo.svg') : path.resolve(rootPath, 'src/assets/logo.dev.svg')
+const favicon =
+  NODE_ENV === 'production'
+    ? path.resolve(rootPath, 'src/assets/logo.svg')
+    : path.resolve(rootPath, 'src/assets/logo.dev.svg');
 
 const plugins = [
   new HtmlWebpackPlugin({
@@ -34,7 +37,7 @@ if (process.env.ANALYZE) {
 if (process.env.NODE_ENV === 'development') {
   const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
-  plugins.push(new ReactRefreshWebpackPlugin);
+  plugins.push(new ReactRefreshWebpackPlugin());
 }
 
 module.exports = {
@@ -44,7 +47,7 @@ module.exports = {
 
   output: {
     filename: '[contenthash].js',
-    sourceMapFilename: "[contenthash].js.map",
+    sourceMapFilename: '[contenthash].js.map',
     chunkFilename: '[id].[contenthash].js',
     path: path.resolve(rootPath, 'dist'),
     publicPath: '/',
@@ -56,9 +59,7 @@ module.exports = {
     hot: true,
     compress: true,
     historyApiFallback: true,
-    static: [
-      path.resolve(rootPath, 'src/assets')
-    ],
+    static: [path.resolve(rootPath, 'src/assets')],
     open: ['/'],
     proxy: {
       '/api': {
@@ -86,10 +87,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
-          { loader: 'css-loader' }
-        ],
+        use: [NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', { loader: 'css-loader' }],
       },
       { test: /\.(png|jpe?g|gif|svg)$/, type: 'asset/resource' },
     ],

@@ -11,11 +11,11 @@ export const schemeToClassName = (scheme: string | null): string => {
     }
   }
   return `scheme-${scheme}`;
-}
+};
 
 export const setSchemeClass = () => {
   for (const className of document.documentElement.classList.values()) {
-    if (className.startsWith("scheme-")) {
+    if (className.startsWith('scheme-')) {
       document.documentElement.classList.remove(className);
     }
   }
@@ -27,7 +27,7 @@ const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
 export function setHeight() {
   if (isSafari) {
-    const root = document.getElementById("root")!;
+    const root = document.getElementById('root')!;
     // root.style.setProperty('--fill-height', '-webkit-fill-available');
   }
 }

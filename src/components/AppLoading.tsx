@@ -10,7 +10,7 @@ const styles = {
     height: 100%;
   `,
   text: css``,
-}
+};
 
 export function AppLoading() {
   return (

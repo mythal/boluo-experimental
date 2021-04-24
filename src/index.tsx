@@ -3,11 +3,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/base.css';
 import './styles/main.css';
-import { env, setDevFavicon } from './utils';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App/>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

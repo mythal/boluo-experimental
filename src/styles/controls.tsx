@@ -35,7 +35,9 @@ export const button = css`
     --line-color: ${colors.blueGray['500']};
   }
 
-  &:not(:disabled):active, &.active, &[data-active="true"] {
+  &:not(:disabled):active,
+  &.active,
+  &[data-active='true'] {
     --shadow: var(--shadow-color) 0 3px 0 0 inset;
     filter: brightness(94%);
   }
@@ -46,8 +48,8 @@ export const button = css`
     cursor: default;
   }
 
-  &[data-kind="primary"] {
-    color: #FFF;
+  &[data-kind='primary'] {
+    color: #fff;
     --btn-bg-color: ${primaryButtonColor};
     --line-color: ${colors.emerald['700']};
     &:not(:disabled):hover {
@@ -63,9 +65,9 @@ export const button = css`
       --line-color: #000;
     }
   }
-  &[data-icon="true"] {
+  &[data-icon='true'] {
     padding: ${size(1.25)} ${size(1.25)};
   }
 `;
 
-export const controlStyle = { button }
+export const controlStyle = { button };

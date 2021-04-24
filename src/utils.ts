@@ -2,19 +2,20 @@ import devFavicon from './assets/logo.dev.svg';
 
 export const timestamp = (): number => new Date().getTime();
 
-export const sleep = (ms: number, signal?: AbortSignal): Promise<'cancelled' | undefined> => new Promise((resolve) => {
-  const handle = window.setTimeout(resolve, ms);
+export const sleep = (ms: number, signal?: AbortSignal): Promise<'cancelled' | undefined> =>
+  new Promise((resolve) => {
+    const handle = window.setTimeout(resolve, ms);
 
-  // see https://css-tricks.com/using-abortcontroller-as-an-alternative-for-removing-event-listeners/
-  signal?.addEventListener('abort', _e => {
-    clearTimeout(handle);
-    resolve('cancelled');
+    // see https://css-tricks.com/using-abortcontroller-as-an-alternative-for-removing-event-listeners/
+    signal?.addEventListener('abort', (_e) => {
+      clearTimeout(handle);
+      resolve('cancelled');
+    });
   });
-});
 
 export const env = (): 'development' | 'production' => {
   if (process.env['NODE_ENV'] === 'production') {
-    return 'production'
+    return 'production';
   }
   return 'development';
 };

@@ -11,7 +11,7 @@ import { setHeight, setSchemeClass } from '../styles/base';
 export function App() {
   useEffect(() => {
     setSchemeClass();
-    setHeight()
+    setHeight();
   }, []);
   return (
     <BrowserRouter>
@@ -19,10 +19,10 @@ export function App() {
         <Suspense fallback={<AppLoading />}>
           <Switch>
             <Route path="/dev">
-              <Scaffolding/>
+              <Scaffolding />
             </Route>
-            <Route path='/error'>
-              <ErrorTrigger/>
+            <Route path="/error">
+              <ErrorTrigger />
             </Route>
             <Route path="/" exact>
               <Home />

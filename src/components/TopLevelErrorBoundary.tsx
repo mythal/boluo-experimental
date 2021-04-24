@@ -6,7 +6,7 @@ export function Oops() {
       <h1>糟糕</h1>
       <p>有什么搞砸了！</p>
     </div>
-  )
+  );
 }
 
 interface Props {
@@ -32,7 +32,7 @@ export class TopLevelErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.error) {
-      return <Oops/>;
+      return <Oops />;
     } else {
       return this.props.children;
     }

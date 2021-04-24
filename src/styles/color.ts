@@ -295,4 +295,3 @@ export const colors = {
   rose,
   bgDark,
 };
-
