@@ -65,7 +65,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.json', '.wasm'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.wasm'],
   },
 
   module: {
