@@ -11,7 +11,7 @@ export type Translation = {
   [key in TextKey]: string;
 };
 
-export const zh: Partial<Translation> = {
+export const zhHans: Partial<Translation> = {
   Home: '主页',
   languageName: '中文',
   Internationalization: '国际化',

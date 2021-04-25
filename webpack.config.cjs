@@ -10,15 +10,9 @@ const rootPath = path.resolve(__dirname);
 const NODE_ENV = process.env.NODE_ENV || 'production';
 const BACKEND = process.env.BACKEND || 'https://boluo.chat';
 
-const favicon =
-  NODE_ENV === 'production'
-    ? path.resolve(rootPath, 'src/assets/logo.svg')
-    : path.resolve(rootPath, 'src/assets/logo.dev.svg');
-
 const plugins = [
   new HtmlWebpackPlugin({
     template: path.resolve(rootPath, 'src/index.html'),
-    favicon,
   }),
   new webpack.EnvironmentPlugin({
     NODE_ENV: process.env.NODE_ENV || 'development',
