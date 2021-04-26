@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { TopLevelErrorBoundary } from './TopLevelErrorBoundary';
 import { AppLoading } from './AppLoading';
@@ -6,13 +6,8 @@ import { Home } from './Home';
 import { PageNotFound } from './PageNotFound';
 import { ErrorTrigger } from './scaffolding/ErrorTrigger';
 import { Scaffolding } from './scaffolding/Scaffolding';
-import { setHeight, setSchemeClass } from '../styles/base';
 
 export function App() {
-  useEffect(() => {
-    setSchemeClass();
-    setHeight();
-  }, []);
   return (
     <BrowserRouter>
       <TopLevelErrorBoundary>

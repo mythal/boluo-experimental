@@ -84,7 +84,6 @@ module.exports = {
         use: [
           (NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader'),
           { loader: 'css-loader' },
-          { loader: 'postcss-loader' },
         ],
       },
       { test: /\.(png|jpe?g|gif|svg)$/, type: 'asset/resource' },

@@ -1,3 +1,11 @@
+import { transparentize } from 'color2k';
+
+export type Color = string;
+
+export const alpha = (color: Color, alpha = 100): Color => {
+  return alpha === 100 ? color : transparentize(color, (100 - alpha) / 100);
+};
+
 // https://tailwindcss.com/docs/customizing-colors#color-palette-reference
 export const rose = {
   50: '#fff1f2',
@@ -268,30 +276,3 @@ export const primary = green;
 export const black = '#000';
 export const white = '#fff';
 export const bgDark = gray['900'];
-
-export const colors = {
-  black,
-  white,
-  blueGray,
-  coolGray,
-  gray,
-  trueGray,
-  warmGray,
-  red,
-  orange,
-  amber,
-  yellow,
-  lime,
-  emerald,
-  teal,
-  cyan,
-  lightBlue,
-  blue,
-  indigo,
-  violet,
-  purple,
-  fuchsia,
-  pink,
-  rose,
-  bgDark,
-};

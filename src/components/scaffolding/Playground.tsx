@@ -1,9 +1,7 @@
 import { atom, useAtom } from 'jotai';
 import { focusAtom } from 'jotai/optics';
-import { scaffoldContainer } from './Scaffolding';
 import { css } from '@emotion/react';
-import { size } from '../../styles/base';
-import { controlStyle } from '../../styles/controls';
+import { size } from '../../styles/sizing';
 
 interface Outer {
   a: {
@@ -30,10 +28,7 @@ function Counter() {
         padding: 0 ${size(2)};
       `}
     >
-      {counter}s{' '}
-      <button css={controlStyle.button} onClick={() => setCounter((counter) => counter + 1)}>
-        +1s
-      </button>
+      {counter}s <button onClick={() => setCounter((counter) => counter + 1)}>+1s</button>
     </div>
   );
 }
@@ -50,7 +45,7 @@ function Input() {
 
 export function Playground() {
   return (
-    <div css={scaffoldContainer}>
+    <div>
       <Counter />
       <Input />
       <div>

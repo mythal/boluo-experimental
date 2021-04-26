@@ -1,4 +1,4 @@
-import { Translation } from '../locals';
+import { Translation } from './key';
 
 const zhHans: Partial<Translation> = {
   Home: '主页',

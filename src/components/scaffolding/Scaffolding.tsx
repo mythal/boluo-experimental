@@ -1,18 +1,12 @@
-import { NavLink, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { NavLink, Route, useRouteMatch } from 'react-router-dom';
 import { Playground } from './Playground';
 import { ErrorTrigger } from './ErrorTrigger';
-import React, { useEffect, useState } from 'react';
-import { css } from '@emotion/react';
+import React from 'react';
 import { AppLoading } from '../AppLoading';
-import { Scheme, schemeToClassName, size } from '../../styles/base';
-import { colors } from '../../styles/color';
 import { Controls } from './Controls';
-import { controlStyle } from '../../styles/controls';
-import { Icon } from '../Icon';
-import { sleep } from '../../utils';
 import { Internationalization } from './Internationalization';
-import { textColor } from '../../styles/theme';
-import { TranslationFunction, useTranslation } from '../../states/i18n';
+import { SchemeSwitch } from './SchemeSwitch';
+import { TranslationFunction, useTranslation } from '../../locals/key';
 
 interface ScaffoldingItem {
   name: string;
@@ -37,74 +31,13 @@ const itemToRoute = (url: string) => (item: ScaffoldingItem) => {
   );
 };
 
-export const scaffoldContainer = css`
-  padding: 4rem clamp(2rem, 10vw, 6rem);
-`;
-
-const styles = {
-  sidebarItem: css`
-    color: ${textColor};
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 ${size(4)};
-    font-size: var(--text-sm);
-    height: 3rem;
-    &:hover {
-      background-color: ${colors.gray['200']};
-    }
-    &.active,
-    &:active {
-      font-weight: bold;
-      background-color: ${colors.gray['300']};
-    }
-  `,
-  sidebar: css`
-    width: clamp(10rem, 20vw, 13rem);
-    flex-shrink: 0;
-    background: ${colors.gray['100']};
-    border-right: 1px solid ${colors.gray['300']};
-  `,
-  container: css`
-    display: grid;
-    grid-template-columns: auto 1fr;
-    height: var(--fill-height);
-  `,
-  context: css`
-    width: 100%;
-    height: 100%;
-  `,
-  empty: css`
-    width: 100%;
-    height: 100%;
-    padding: 30px 10vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `,
-  main: css`
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-    &.scheme-dark {
-      color: ${colors.blueGray['100']};
-      background-color: ${colors.blueGray['900']};
-    }
-  `,
-  schemeSwitchBar: css`
-    display: flex;
-    gap: ${size(1)};
-    justify-content: flex-end;
-    padding: ${size(2)};
-  `,
-};
-
 const itemToSidebarItem = (url: string) => (item: ScaffoldingItem) => {
   return (
-    <NavLink css={styles.sidebarItem} activeClassName="active" to={`${url}/${item.name}`} key={item.name}>
-      {item.title}
-    </NavLink>
+    <li key={item.name}>
+      <NavLink css={[]} activeClassName="active" to={`${url}/${item.name}`}>
+        {item.title}
+      </NavLink>
+    </li>
   );
 };
 
@@ -113,47 +46,14 @@ export function Scaffolding() {
   const routerMapper = itemToRoute(url);
   const _ = useTranslation();
   const sidebarItemMapper = itemToSidebarItem(path);
-  const [startTransition, setStartTransition] = useState(false);
-  const [scheme, setScheme] = useState<Scheme | null>(null);
   const items = generateItems(_);
-  const changeScheme = (scheme: Scheme | null) => async () => {
-    setStartTransition(true);
-    await sleep(0);
-    setScheme(scheme);
-  };
-  useEffect(() => {
-    let handler: number | undefined;
-    if (startTransition) {
-      handler = window.setTimeout(() => setStartTransition(false), 3000);
-    }
-    return () => window.clearTimeout(handler);
-  }, [startTransition]);
   return (
-    <div css={[styles.container]}>
-      <aside css={styles.sidebar}>
-        <div css={styles.schemeSwitchBar}>
-          <button
-            data-icon={true}
-            data-active={scheme === 'light'}
-            css={controlStyle.button}
-            onClick={changeScheme(scheme === 'light' ? null : 'light')}
-          >
-            <Icon id="sun" />
-          </button>
-          <button
-            data-icon={true}
-            data-active={scheme === 'dark'}
-            css={controlStyle.button}
-            onClick={changeScheme(scheme === 'dark' ? null : 'dark')}
-          >
-            <Icon id="moon" />
-          </button>
-        </div>
-        {items.map(sidebarItemMapper)}
+    <div css={[]}>
+      <aside css={[]}>
+        <SchemeSwitch />
+        <ul>{items.map(sidebarItemMapper)}</ul>
       </aside>
-      <main css={[schemeToClassName(scheme), styles.main]}>
-        <Switch>{items.map(routerMapper)}</Switch>
-      </main>
+      <main css={[]}>{/*<Switch>{items.map(routerMapper)}</Switch>*/}</main>
     </div>
   );
 }

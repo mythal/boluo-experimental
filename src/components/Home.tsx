@@ -1,6 +1,6 @@
-import { useTranslation } from '../states/i18n';
+import { useTranslation } from '../locals/key';
 
 export function Home() {
   const _ = useTranslation();
-  return <div className="m-4">{_('Home')}</div>;
+  return <div>{_('Home')}</div>;
 }

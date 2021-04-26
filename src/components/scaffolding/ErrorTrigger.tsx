@@ -1,15 +1,4 @@
-import { css } from '@emotion/react';
 import React, { useRef, useState } from 'react';
-import { size } from '../../styles/base';
-import { scaffoldContainer } from './Scaffolding';
-import { controlStyle } from '../../styles/controls';
-
-const styles = {
-  text: css`
-    font-family: 'Palatino', serif;
-    margin: ${size(2)} 0;
-  `,
-};
 
 class Trouble extends React.Component<unknown, { triggered: boolean }> {
   constructor(props: unknown) {
@@ -23,7 +12,7 @@ class Trouble extends React.Component<unknown, { triggered: boolean }> {
     if (this.state.triggered) {
       throw new Error('Everything in fire');
     }
-    return <p css={styles.text}>Nothing happen.</p>;
+    return <p>Nothing happen.</p>;
   }
 }
 
@@ -44,10 +33,8 @@ class LocalErrorBoundary extends React.Component<unknown, { error: unknown }> {
     if (this.state.error) {
       return (
         <div>
-          <p css={styles.text}>有什么炸了</p>
-          <button css={controlStyle.button} onClick={() => this.setState({ error: null })}>
-            重来
-          </button>
+          <p>有什么炸了</p>
+          <button onClick={() => this.setState({ error: null })}>重来</button>
         </div>
       );
     } else {
@@ -61,8 +48,8 @@ export function ErrorTrigger() {
   const troubleRef = useRef<Trouble>(null);
   const Wrapper = localErrorBoundary ? LocalErrorBoundary : React.Fragment;
   return (
-    <div css={scaffoldContainer}>
-      <p css={styles.text}>
+    <div>
+      <p>
         <label>
           局部错误边界{' '}
           <input
@@ -72,9 +59,7 @@ export function ErrorTrigger() {
           />
         </label>
       </p>
-      <button css={controlStyle.button} onClick={() => troubleRef.current?.trigger()}>
-        Everything in fire
-      </button>
+      <button onClick={() => troubleRef.current?.trigger()}>Everything in fire</button>
       <Wrapper>
         <Trouble ref={troubleRef} />
       </Wrapper>
