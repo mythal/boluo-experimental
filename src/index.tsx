@@ -1,8 +1,7 @@
 import { App } from './components/App';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles/base.css';
-import './styles/main.css';
+import './styles/tailwind.css';
 import { env, setDevFavicon } from './utils';
 
 ReactDOM.render(
