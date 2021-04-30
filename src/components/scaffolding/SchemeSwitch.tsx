@@ -1,17 +1,39 @@
 import { atom, useAtom } from 'jotai';
 import React, { useCallback } from 'react';
 import { Icon } from '../Icon';
-import { Scheme } from '../../styles/scheme';
+import { Scheme, switchToAuto, switchToDark, switchToLight } from '../../styles/scheme';
 
-const schemeAtom = atom<Scheme | 'auto'>('auto');
+export type SchemeState = Scheme | 'auto';
+const schemeDataAtom = atom<SchemeState>('auto');
+export const schemeAtom = atom<SchemeState, SchemeState>(
+  (get) => get(schemeDataAtom),
+  (get, set, next) => {
+    if (next === 'auto') {
+      switchToAuto();
+    } else if (next === 'light') {
+      switchToLight();
+    } else if (next === 'dark') {
+      switchToDark();
+    }
+    set(schemeDataAtom, next);
+  }
+);
+schemeAtom.onMount = () => switchToAuto();
+
+export const toggleSchemeAtom = atom<SchemeState, Scheme>(
+  (get) => get(schemeDataAtom),
+  (get, set, update) => {
+    const prev = get(schemeAtom);
+    if (prev === update) {
+      set(schemeAtom, 'auto');
+      return;
+    }
+    set(schemeAtom, update);
+  }
+);
 export const SchemeSwitch = () => {
-  const [scheme, setScheme] = useAtom(schemeAtom);
-  const handle = useCallback(
-    (scheme: Scheme) => () => {
-      setScheme((prev) => (prev === scheme ? 'auto' : scheme));
-    },
-    [setScheme]
-  );
+  const [scheme, setScheme] = useAtom(toggleSchemeAtom);
+  const handle = useCallback((scheme: Scheme) => () => setScheme(scheme), [setScheme]);
   return (
     <div>
       <button data-icon={true} data-active={scheme === 'light'} onClick={handle('light')}>

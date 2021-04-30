@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { paragraph, span } from '../../styles/atom';
 
 class Trouble extends React.Component<unknown, { triggered: boolean }> {
   constructor(props: unknown) {
@@ -12,7 +13,7 @@ class Trouble extends React.Component<unknown, { triggered: boolean }> {
     if (this.state.triggered) {
       throw new Error('Everything in fire');
     }
-    return <p>Nothing happen.</p>;
+    return <p css={paragraph}>Nothing happen.</p>;
   }
 }
 
@@ -51,7 +52,7 @@ export function ErrorTrigger() {
     <div>
       <p>
         <label>
-          局部错误边界{' '}
+          <span css={span}>局部错误边界 </span>
           <input
             type="checkbox"
             checked={localErrorBoundary}

@@ -1,10 +1,30 @@
 import React, { Component, ErrorInfo } from 'react';
+import { overflow } from '../styles/layout';
+import { p } from '../styles/spacing';
+import { bgColor } from '../styles/backgrounds';
+import { black, green } from '../styles/color';
+import { fontMono, text, textColor, whitespace } from '../styles/typography';
+import { rounded } from '../styles/borders';
 
-export function Oops() {
+const styles = {
+  errorMessage: [
+    overflow.x.auto,
+    p.n(4),
+    rounded.normal,
+    bgColor(black),
+    textColor(green['400']),
+    text.sm,
+    fontMono,
+    whitespace.pre,
+  ],
+};
+
+export function Oops({ error }: { error: string }) {
   return (
-    <div>
+    <div css={p.n(8)}>
       <h1>糟糕</h1>
       <p>有什么搞砸了！</p>
+      <pre css={styles.errorMessage}>{error}</pre>
     </div>
   );
 }
@@ -32,7 +52,7 @@ export class TopLevelErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.error) {
-      return <Oops />;
+      return <Oops error={String(this.state.error)} />;
     } else {
       return this.props.children;
     }

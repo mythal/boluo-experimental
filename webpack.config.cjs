@@ -81,10 +81,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [
-          (NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader'),
-          { loader: 'css-loader' },
-        ],
+        use: [NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader', { loader: 'css-loader' }],
       },
       { test: /\.(png|jpe?g|gif|svg)$/, type: 'asset/resource' },
     ],

@@ -1,25 +1,29 @@
-import { NavLink, Route, useRouteMatch } from 'react-router-dom';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Playground } from './Playground';
 import { ErrorTrigger } from './ErrorTrigger';
 import React from 'react';
-import { AppLoading } from '../AppLoading';
+import { PageLoading } from '../PageLoading';
 import { Controls } from './Controls';
 import { Internationalization } from './Internationalization';
-import { SchemeSwitch } from './SchemeSwitch';
-import { TranslationFunction, useTranslation } from '../../locals/key';
+import { Translation, useTranslation } from '../../locals/key';
+import { css } from '@emotion/react';
+import { p } from '../../styles/spacing';
+import { Sidebar } from './Sidebar';
+import { TextDisplay } from './TextDisplay';
 
-interface ScaffoldingItem {
+export interface ScaffoldingItem {
   name: string;
   title: string;
   component: React.ComponentType;
 }
 
-const generateItems = (_: TranslationFunction): ScaffoldingItem[] => [
-  { name: 'error', component: ErrorTrigger, title: _('Error Handling') },
-  { name: 'playground', component: Playground, title: _('Sandbox') },
-  { name: 'app-loading', component: AppLoading, title: _('Page Loading') },
-  { name: 'controls', component: Controls, title: _('Controls') },
-  { name: 'i18n', component: Internationalization, title: _('Internationalization') },
+const generateItems = (_: Translation): ScaffoldingItem[] => [
+  { name: 'error', component: ErrorTrigger, title: _.ERROR_HANDING },
+  { name: 'playground', component: Playground, title: _.SANDBOX },
+  { name: 'app-loading', component: PageLoading, title: _.PAGE_LOADING },
+  { name: 'controls', component: Controls, title: _.CONTROLS },
+  { name: 'i18n', component: Internationalization, title: _.I18N },
+  { name: 'text', component: TextDisplay, title: _.TEXT_DISPLAY },
 ];
 
 const itemToRoute = (url: string) => (item: ScaffoldingItem) => {
@@ -31,29 +35,25 @@ const itemToRoute = (url: string) => (item: ScaffoldingItem) => {
   );
 };
 
-const itemToSidebarItem = (url: string) => (item: ScaffoldingItem) => {
-  return (
-    <li key={item.name}>
-      <NavLink css={[]} activeClassName="active" to={`${url}/${item.name}`}>
-        {item.title}
-      </NavLink>
-    </li>
-  );
+const styles = {
+  container: css`
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: auto 1fr;
+  `,
 };
 
 export function Scaffolding() {
-  const { url, path } = useRouteMatch();
-  const routerMapper = itemToRoute(url);
+  const { url } = useRouteMatch();
   const _ = useTranslation();
-  const sidebarItemMapper = itemToSidebarItem(path);
   const items = generateItems(_);
+  const router = items.map(itemToRoute(url));
   return (
-    <div css={[]}>
-      <aside css={[]}>
-        <SchemeSwitch />
-        <ul>{items.map(sidebarItemMapper)}</ul>
-      </aside>
-      <main css={[]}>{/*<Switch>{items.map(routerMapper)}</Switch>*/}</main>
+    <div css={styles.container}>
+      <Sidebar items={items} />
+      <main css={[p.n(4)]}>
+        <Switch>{router}</Switch>
+      </main>
     </div>
   );
 }

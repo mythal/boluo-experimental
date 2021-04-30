@@ -1,13 +1,15 @@
 import { Translation } from './key';
 
-const zhHans: Partial<Translation> = {
-  Home: '主页',
-  languageName: '中文',
-  Internationalization: '国际化',
-  'Error Handling': '错误处理',
-  'Page Loading': '全页载入',
-  Sandbox: '沙盒',
-  Controls: '控件',
+const zhHans: Translation = {
+  HOME: '主页',
+  LANG: '中文',
+  I18N: '国际化',
+  ERROR_HANDING: '错误处理',
+  PAGE_LOADING: '全页载入',
+  LOADING: '载入中',
+  SANDBOX: '沙盒',
+  CONTROLS: '控件',
+  TEXT_DISPLAY: '文本显示',
 };
 
 export default zhHans;

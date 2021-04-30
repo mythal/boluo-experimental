@@ -2,13 +2,15 @@ import { atom } from 'jotai';
 import { useAtomValue } from 'jotai/utils';
 
 export type TextKey =
-  | 'Home'
-  | 'languageName'
-  | 'Internationalization'
-  | 'Controls'
-  | 'Sandbox'
-  | 'Error Handling'
-  | 'Page Loading';
+  | 'HOME'
+  | 'LANG'
+  | 'I18N'
+  | 'CONTROLS'
+  | 'SANDBOX'
+  | 'ERROR_HANDING'
+  | 'PAGE_LOADING'
+  | 'LOADING'
+  | 'TEXT_DISPLAY';
 
 export type Translation = {
   [key in TextKey]: string;
@@ -42,25 +44,16 @@ const getLang = (): SupportedLang => {
   return defaultLang;
 };
 export const languageAtom = atom<SupportedLang>(getLang());
-export const translationAtom = atom<Partial<Translation>>(
-  async (get): Promise<Partial<Translation>> => {
-    const lang = get(languageAtom);
-    if (lang === 'en') {
-      return (await import('../locals/en')).default;
-    } else {
-      if (lang === 'zh-hans') {
-        return (await import('../locals/zh-hans')).default;
-      } else if (lang === 'ja') {
-        return (await import('../locals/ja')).default;
-      }
-    }
-    return {};
+export const translationAtom = atom<Translation>(async (get): Promise<Translation> => {
+  const lang = get(languageAtom);
+  if (lang === 'zh-hans') {
+    return (await import('../locals/zh-hans')).default;
+  } else if (lang === 'ja') {
+    return (await import('../locals/ja')).default;
+  } else {
+    return (await import('../locals/en')).default;
   }
-);
-export type TranslationFunction = (key: keyof Translation, defaultText?: string | null) => string;
-export const useTranslation = (): TranslationFunction => {
-  const translation = useAtomValue(translationAtom);
-  return (key, defaultText = null): string => {
-    return translation[key] ?? defaultText ?? key;
-  };
+});
+export const useTranslation = (): Translation => {
+  return useAtomValue(translationAtom);
 };
