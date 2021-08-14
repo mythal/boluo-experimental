@@ -1,6 +1,6 @@
 import { SchemeSwitch } from './SchemeSwitch';
 import { ScaffoldingItem } from './Scaffolding';
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { size } from '../../styles/sizing';
 import { link } from '../../styles/atom';
@@ -17,10 +17,10 @@ const styles = {
   `,
 };
 
-const itemToSidebarItem = (url: string) => (item: ScaffoldingItem) => {
+const itemToSidebarItem = () => (item: ScaffoldingItem) => {
   return (
     <li key={item.name}>
-      <NavLink css={link} activeClassName="active" to={`${url}/${item.name}`}>
+      <NavLink css={link} activeClassName="active" to={`${item.name}`}>
         {item.title}
       </NavLink>
     </li>
@@ -28,8 +28,7 @@ const itemToSidebarItem = (url: string) => (item: ScaffoldingItem) => {
 };
 
 export function Sidebar({ items }: { items: ScaffoldingItem[] }) {
-  const { path } = useRouteMatch();
-  const sidebarItemMapper = itemToSidebarItem(path);
+  const sidebarItemMapper = itemToSidebarItem();
   return (
     <aside css={styles.sidebar}>
       <SchemeSwitch />

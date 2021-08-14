@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { TopLevelErrorBoundary } from './TopLevelErrorBoundary';
 import { PageLoading } from './PageLoading';
 import { Home } from './Home';
@@ -26,20 +26,18 @@ export function App() {
       <TopLevelErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <Global styles={appStyle} />
-          <Switch>
-            <Route path="/dev">
-              <Scaffolding />
-            </Route>
+          <Routes>
+            <Route path="/dev/*" element={<Scaffolding/>}/>
             <Route path="/error">
               <ErrorTrigger />
             </Route>
-            <Route path="/" exact>
+            <Route path="/">
               <Home />
             </Route>
             <Route>
               <PageNotFound />
             </Route>
-          </Switch>
+          </Routes>
         </Suspense>
       </TopLevelErrorBoundary>
     </BrowserRouter>

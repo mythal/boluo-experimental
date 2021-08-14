@@ -1,4 +1,4 @@
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Playground } from './Playground';
 import { ErrorTrigger } from './ErrorTrigger';
 import React from 'react';
@@ -26,12 +26,10 @@ const generateItems = (_: Translation): ScaffoldingItem[] => [
   { name: 'text', component: TextDisplay, title: _.TEXT_DISPLAY },
 ];
 
-const itemToRoute = (url: string) => (item: ScaffoldingItem) => {
+const itemToRoute = () => (item: ScaffoldingItem) => {
   const Component = item.component;
   return (
-    <Route path={`${url}/${item.name}`} key={item.name}>
-      <Component />
-    </Route>
+    <Route path={`/${item.name}`} key={item.name} element={<Component/>}/>
   );
 };
 
@@ -44,15 +42,14 @@ const styles = {
 };
 
 export function Scaffolding() {
-  const { url } = useRouteMatch();
   const _ = useTranslation();
   const items = generateItems(_);
-  const router = items.map(itemToRoute(url));
+  const router = items.map(itemToRoute());
   return (
     <div css={styles.container}>
       <Sidebar items={items} />
       <main css={[p.n(4)]}>
-        <Switch>{router}</Switch>
+        <Routes>{router}</Routes>
       </main>
     </div>
   );
